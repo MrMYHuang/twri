@@ -1,0 +1,39 @@
+{
+  "short_name": "台灣藥品",
+  "name": "台灣藥品",
+  "icons": [
+    {
+      "src": "assets/icon/icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "assets/icon/icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "scope": "/twdi/",
+  "start_url": "/twdi/",
+  "shortcuts": [
+    {
+      "name": "第1書籤",
+      "url": "/twdi/bookmarks?item=0",
+      "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
+    },
+    {
+      "name": "搜尋西藥",
+      "url": "/twdi/dictionary/search",
+      "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
+    },
+    {
+      "name": "搜尋中藥",
+      "url": "/twdi/dictionary/searchCH",
+      "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
+    }
+  ],
+  "display": "standalone",
+  "theme_color": "black",
+  "background_color": "black"
+}
