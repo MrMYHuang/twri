@@ -195,7 +195,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
       });
     }
 
-    const dbOpenReq = indexedDB.open(Globals.twdiDb);
+    const dbOpenReq = indexedDB.open(Globals.twriDb);
     // Init store in indexedDB if necessary.
     dbOpenReq.onupgradeneeded = function (event: IDBVersionChangeEvent) {
       var db = (event.target as any).result;
@@ -352,7 +352,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
               text: '顯示版本歷史',
               cssClass: 'secondary uiFont',
               handler: (value) => {
-                window.open('https://github.com/MrMYHuang/twdi#history');
+                window.open('https://github.com/MrMYHuang/twri#history');
               },
             }
           ]}

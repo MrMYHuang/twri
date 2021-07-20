@@ -113,7 +113,7 @@ function createWindow() {
   if (isDevMode()) {
     mainWindow.loadURL('http://localhost:3000');
   } else {
-    mainWindow.loadURL('https://myhpwa.github.io/twdi');
+    mainWindow.loadURL('https://myhpwa.github.io/twri');
   }
 
   // Open web link by external browser.

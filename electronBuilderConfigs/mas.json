@@ -1,6 +1,6 @@
 {
   "extends": null,
-  "appId": "io.github.myhpwa.twdi",
+  "appId": "io.github.myhpwa.twri",
   "files": [
     "buildElectron/**/*",
     "package.json"
@@ -19,6 +19,6 @@
     "hardenedRuntime": false,
     "entitlements": "buildElectron/entitlements.mas.plist",
     "entitlementsInherit": "buildElectron/entitlements.mas.inherit.plist",
-    "provisioningProfile": "twdi.provisionprofile"
+    "provisioningProfile": "twri.provisionprofile"
   }
 }

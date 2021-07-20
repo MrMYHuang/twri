@@ -2,13 +2,13 @@
     flex-grow: 1;
 }
 
-.theme0, .twdithemes .cbeta {
+.theme0, .twrithemes .cbeta {
     --color: black;
     --background: #d2e3d7;
     --ion-background-color: #d2e3d7;
 }
 
-.theme1, .twdithemes .dark {
+.theme1, .twrithemes .dark {
     --color: var(--ion-text-color);
     --background: var(--ion-background-color);
     --ion-background-color: #000000;
@@ -40,19 +40,19 @@
     --ion-card-background: #1c1c1d;
 }
 
-.theme2, .twdithemes .light {
+.theme2, .twrithemes .light {
     --color: black;
     --background: white;
     --ion-background-color: white;
 }
 
-.theme3, .twdithemes .oldPaper {
+.theme3, .twrithemes .oldPaper {
     --color: black;
     --background: #f2eecb;
     --ion-background-color: #f2eecb;
 }
 
-.theme4, .twdithemes .marble {
+.theme4, .twrithemes .marble {
     --color: black;
     --background: #b7b2af;
     --ion-background-color: #b7b2af;

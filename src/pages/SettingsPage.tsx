@@ -94,7 +94,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                 if (!hasUpdate) {
                   this.setState({ showToast: true, toastMessage: 'App已是最新版' });
                 }
-              }}>PWA版本: <a href="https://github.com/MrMYHuang/twdi#history" target="_new">{PackageInfos.pwaVersion}</a></IonLabel>
+              }}>PWA版本: <a href="https://github.com/MrMYHuang/twri#history" target="_new">{PackageInfos.pwaVersion}</a></IonLabel>
               <IonButton fill='outline' shape='round' slot='end' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={e => {
                 this.props.dispatch({
                   type: "TMP_SET_KEY_VAL",
@@ -116,7 +116,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
             <IonItem>
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={bug} slot='start' />
-              <IonLabel className='ion-text-wrap uiFont'><a href="https://github.com/MrMYHuang/twdi#report" target="_new">啟用app異常記錄</a></IonLabel>
+              <IonLabel className='ion-text-wrap uiFont'><a href="https://github.com/MrMYHuang/twri#report" target="_new">啟用app異常記錄</a></IonLabel>
               <IonToggle slot='end' checked={this.props.hasAppLog} onIonChange={e => {
                 const isChecked = e.detail.checked;
 
@@ -237,7 +237,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                 value={this.props.theme}
                 style={{ fontSize: 'var(--ui-font-size)' }}
                 interface='popover'
-                interfaceOptions={{ cssClass: 'twdithemes' }}
+                interfaceOptions={{ cssClass: 'twrithemes' }}
                 onIonChange={e => {
                   const value = e.detail.value;
                   // Important! Because it can results in rerendering of its parent component but
@@ -325,7 +325,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               <IonIcon icon={musicalNotes} slot='start' />
               <div className="contentBlock">
                 <div style={{ flexDirection: "column" }}>
-                  <IonLabel className='ion-text-wrap uiFont'><a href="https://github.com/MrMYHuang/twdi#text2speech" target="_new">合成語音語速</a>: {this.props.speechRate}</IonLabel>
+                  <IonLabel className='ion-text-wrap uiFont'><a href="https://github.com/MrMYHuang/twri#text2speech" target="_new">合成語音語速</a>: {this.props.speechRate}</IonLabel>
                   <IonRange min={0.1} max={1.5} step={0.1} snaps={true} value={this.props.speechRate} onIonChange={e => {
                     this.props.dispatch({
                       type: "SET_KEY_VAL",
@@ -342,8 +342,8 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               <IonIcon icon={helpCircle} slot='start' />
               <div style={{ fontSize: 'var(--ui-font-size)' }}>
                 <div>關於</div>
-                <div><a href="https://github.com/MrMYHuang/twdi#web-app" target="_new">程式安裝說明</a></div>
-                <div><a href="https://github.com/MrMYHuang/twdi" target="_new">操作說明與開放原始碼</a></div>
+                <div><a href="https://github.com/MrMYHuang/twri#web-app" target="_new">程式安裝說明</a></div>
+                <div><a href="https://github.com/MrMYHuang/twri" target="_new">操作說明與開放原始碼</a></div>
                 <div>作者: Meng-Yuan Huang</div>
                 <div><a href="mailto:myh@live.com" target="_new">myh@live.com</a></div>
               </div>

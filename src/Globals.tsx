@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
   twchDataUrl = twchDataUrl.replace(/(http|https):\/\//, corsProxyUrl);
 }
 
-const twdiDb = 'twdiDb';
+const twriDb = 'twriDb';
 const twdDataKey = 'twdData';
 const twchDataKey = 'twchData';
 let log = '';
@@ -50,7 +50,7 @@ async function downloadTwdData(url: string, progressCallback: Function) {
 }
 
 async function getFileFromIndexedDB(fileName: string) {
-  const dbOpenReq = indexedDB.open(twdiDb);
+  const dbOpenReq = indexedDB.open(twriDb);
 
   return new Promise(function (ok, fail) {
     dbOpenReq.onsuccess = async function (ev) {
@@ -76,7 +76,7 @@ async function getFileFromIndexedDB(fileName: string) {
 }
 
 async function saveFileToIndexedDB(fileName: string, data: any) {
-  const dbOpenReq = indexedDB.open(twdiDb);
+  const dbOpenReq = indexedDB.open(twriDb);
   return new Promise<void>((ok, fail) => {
     dbOpenReq.onsuccess = async (ev: Event) => {
       const db = dbOpenReq.result;
@@ -90,7 +90,7 @@ async function saveFileToIndexedDB(fileName: string, data: any) {
 }
 
 async function removeFileFromIndexedDB(fileName: string) {
-  const dbOpenReq = indexedDB.open(twdiDb);
+  const dbOpenReq = indexedDB.open(twriDb);
   return new Promise<void>((ok, fail) => {
     try {
       dbOpenReq.onsuccess = (ev: Event) => {
@@ -112,7 +112,7 @@ async function removeFileFromIndexedDB(fileName: string) {
 }
 
 async function clearIndexedDB() {
-  const dbOpenReq = indexedDB.open(twdiDb);
+  const dbOpenReq = indexedDB.open(twriDb);
   return new Promise<void>((ok, fail) => {
     dbOpenReq.onsuccess = async (ev: Event) => {
       const db = dbOpenReq.result;
@@ -213,7 +213,7 @@ const Globals = {
   getLog,
   enableAppLog,
   disableAppLog,
-  twdiDb,
+  twriDb,
   durgResources: [
     { item: "離線西藥資料", dataKey: twdDataKey, url: twdDataUrl },
     { item: "離線中藥資料", dataKey: twchDataKey, url: twchDataUrl },

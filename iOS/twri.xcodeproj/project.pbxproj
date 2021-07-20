@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DBC713B2269D606400FCE5B0 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC713B1269D606400FCE5B0 /* Tests_iOS.swift */; };
-		DBC713BF269D606400FCE5B0 /* twdiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC71396269D606300FCE5B0 /* twdiApp.swift */; };
+		DBC713BF269D606400FCE5B0 /* twriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC71396269D606300FCE5B0 /* twriApp.swift */; };
 		DBC713C1269D606400FCE5B0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC71397269D606300FCE5B0 /* ContentView.swift */; };
 		DBC713C3269D606400FCE5B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBC71398269D606400FCE5B0 /* Assets.xcassets */; };
 		DBC713D5269D6AC300FCE5B0 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC713D4269D6AC300FCE5B0 /* WebViewController.swift */; };
@@ -21,22 +21,22 @@
 			containerPortal = DBC71391269D606300FCE5B0 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DBC7139C269D606400FCE5B0;
-			remoteInfo = "twdi (iOS)";
+			remoteInfo = "twri (iOS)";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DBC71396269D606300FCE5B0 /* twdiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = twdiApp.swift; sourceTree = "<group>"; };
+		DBC71396269D606300FCE5B0 /* twriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = twriApp.swift; sourceTree = "<group>"; };
 		DBC71397269D606300FCE5B0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DBC71398269D606400FCE5B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DBC7139D269D606400FCE5B0 /* twdi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twdi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBC7139D269D606400FCE5B0 /* twri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBC713A0269D606400FCE5B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBC713AD269D606400FCE5B0 /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBC713B1269D606400FCE5B0 /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
 		DBC713B3269D606400FCE5B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBC713BC269D606400FCE5B0 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		DBC713BE269D606400FCE5B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DBC713D3269D608600FCE5B0 /* twdi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = twdi.entitlements; sourceTree = "<group>"; };
+		DBC713D3269D608600FCE5B0 /* twri.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = twri.entitlements; sourceTree = "<group>"; };
 		DBC713D4269D6AC300FCE5B0 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,7 +69,7 @@
 		DBC71390269D606300FCE5B0 = {
 			isa = PBXGroup;
 			children = (
-				DBC713D3269D608600FCE5B0 /* twdi.entitlements */,
+				DBC713D3269D608600FCE5B0 /* twri.entitlements */,
 				DBC71395269D606300FCE5B0 /* Shared */,
 				DBC7139F269D606400FCE5B0 /* iOS */,
 				DBC713B0269D606400FCE5B0 /* Tests iOS */,
@@ -82,7 +82,7 @@
 		DBC71395269D606300FCE5B0 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				DBC71396269D606300FCE5B0 /* twdiApp.swift */,
+				DBC71396269D606300FCE5B0 /* twriApp.swift */,
 				DBC71397269D606300FCE5B0 /* ContentView.swift */,
 				DBC713D4269D6AC300FCE5B0 /* WebViewController.swift */,
 				DBC71398269D606400FCE5B0 /* Assets.xcassets */,
@@ -93,7 +93,7 @@
 		DBC7139E269D606400FCE5B0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DBC7139D269D606400FCE5B0 /* twdi.app */,
+				DBC7139D269D606400FCE5B0 /* twri.app */,
 				DBC713AD269D606400FCE5B0 /* Tests iOS.xctest */,
 			);
 			name = Products;
@@ -128,9 +128,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DBC7139C269D606400FCE5B0 /* twdi (iOS) */ = {
+		DBC7139C269D606400FCE5B0 /* twri (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DBC713C7269D606400FCE5B0 /* Build configuration list for PBXNativeTarget "twdi (iOS)" */;
+			buildConfigurationList = DBC713C7269D606400FCE5B0 /* Build configuration list for PBXNativeTarget "twri (iOS)" */;
 			buildPhases = (
 				DBC71399269D606400FCE5B0 /* Sources */,
 				DBC7139A269D606400FCE5B0 /* Frameworks */,
@@ -140,12 +140,12 @@
 			);
 			dependencies = (
 			);
-			name = "twdi (iOS)";
+			name = "twri (iOS)";
 			packageProductDependencies = (
 				DBC713D8269D6B2C00FCE5B0 /* SnapKit */,
 			);
-			productName = "twdi (iOS)";
-			productReference = DBC7139D269D606400FCE5B0 /* twdi.app */;
+			productName = "twri (iOS)";
+			productReference = DBC7139D269D606400FCE5B0 /* twri.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DBC713AC269D606400FCE5B0 /* Tests iOS */ = {
@@ -184,7 +184,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DBC71394269D606300FCE5B0 /* Build configuration list for PBXProject "twdi" */;
+			buildConfigurationList = DBC71394269D606300FCE5B0 /* Build configuration list for PBXProject "twri" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -200,7 +200,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DBC7139C269D606400FCE5B0 /* twdi (iOS) */,
+				DBC7139C269D606400FCE5B0 /* twri (iOS) */,
 				DBC713AC269D606400FCE5B0 /* Tests iOS */,
 			);
 		};
@@ -231,7 +231,7 @@
 			files = (
 				DBC713C1269D606400FCE5B0 /* ContentView.swift in Sources */,
 				DBC713D5269D6AC300FCE5B0 /* WebViewController.swift in Sources */,
-				DBC713BF269D606400FCE5B0 /* twdiApp.swift in Sources */,
+				DBC713BF269D606400FCE5B0 /* twriApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +248,7 @@
 /* Begin PBXTargetDependency section */
 		DBC713AF269D606400FCE5B0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DBC7139C269D606400FCE5B0 /* twdi (iOS) */;
+			target = DBC7139C269D606400FCE5B0 /* twri (iOS) */;
 			targetProxy = DBC713AE269D606400FCE5B0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -370,7 +370,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = twdi.entitlements;
+				CODE_SIGN_ENTITLEMENTS = twri.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XU8X8HU5ST;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -381,8 +381,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.github.myhpwa.twdi;
-				PRODUCT_NAME = twdi;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.myhpwa.twri;
+				PRODUCT_NAME = twri;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -395,7 +395,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = twdi.entitlements;
+				CODE_SIGN_ENTITLEMENTS = twri.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XU8X8HU5ST;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -406,8 +406,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.github.myhpwa.twdi;
-				PRODUCT_NAME = twdi;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.myhpwa.twri;
+				PRODUCT_NAME = twri;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -434,7 +434,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "twdi (iOS)";
+				TEST_TARGET_NAME = "twri (iOS)";
 			};
 			name = Debug;
 		};
@@ -456,7 +456,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "twdi (iOS)";
+				TEST_TARGET_NAME = "twri (iOS)";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -464,7 +464,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DBC71394269D606300FCE5B0 /* Build configuration list for PBXProject "twdi" */ = {
+		DBC71394269D606300FCE5B0 /* Build configuration list for PBXProject "twri" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DBC713C5269D606400FCE5B0 /* Debug */,
@@ -473,7 +473,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DBC713C7269D606400FCE5B0 /* Build configuration list for PBXNativeTarget "twdi (iOS)" */ = {
+		DBC713C7269D606400FCE5B0 /* Build configuration list for PBXNativeTarget "twri (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DBC713C8269D606400FCE5B0 /* Debug */,

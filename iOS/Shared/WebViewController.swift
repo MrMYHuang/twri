@@ -26,7 +26,7 @@ class WebViewController: UIViewController {
     #if DEBUG
     let baseURL = URL(string: "http://localhost:3000")!
     #else
-    let baseURL = URL(string: "https://myhpwa.github.io/twdi")!
+    let baseURL = URL(string: "https://myhpwa.github.io/twri")!
     #endif
     
     let contentController = WKUserContentController();
