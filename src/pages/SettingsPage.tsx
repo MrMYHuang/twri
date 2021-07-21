@@ -137,7 +137,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               <IonIcon icon={bug} slot='start' />
               <IonLabel className='ion-text-wrap uiFont'>回報app異常記錄</IonLabel>
               <IonButton fill='outline' shape='round' slot='end' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={e => {
-                window.open(`mailto:myh@live.com?subject=台灣藥品異常記錄回報&body=${encodeURIComponent("問題描述(建議填寫)：\n\n瀏覽器：" + navigator.userAgent + "\n\nApp版本：" + PackageInfos.pwaVersion + "\n\nApp設定：" + JSON.stringify(this.props.settings) + "\n\nLog：\n" + Globals.getLog())}`);
+                window.open(`mailto:myh@live.com?subject=台灣水庫異常記錄回報&body=${encodeURIComponent("問題描述(建議填寫)：\n\n瀏覽器：" + navigator.userAgent + "\n\nApp版本：" + PackageInfos.pwaVersion + "\n\nApp設定：" + JSON.stringify(this.props.settings) + "\n\nLog：\n" + Globals.getLog())}`);
               }}>回報</IonButton>
             </IonItem>
             <IonItem>
@@ -217,7 +217,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={refreshCircle} slot='start' />
               <div style={{ width: '100%' }}>
-                <IonLabel className='ion-text-wrap uiFont'>更新離線藥品資料</IonLabel>
+                <IonLabel className='ion-text-wrap uiFont'>更新離線水庫資料</IonLabel>
                 <IonProgressBar value={this.state.twdDataDownloadRatio} />
               </div>
               <IonButton fill='outline' shape='round' slot='end' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={async (e) => this.updateDrugData()}>更新</IonButton>
@@ -225,7 +225,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                 cssClass='uiFont'
                 isOpen={this.state.showUpdateDrugDataDone}
                 onDidDismiss={() => this.setState({ showUpdateDrugDataDone: false })}
-                message={`離線藥品資料更新完畢！`}
+                message={`離線水庫資料更新完畢！`}
                 duration={2000}
               />
             </IonItem>

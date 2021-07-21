@@ -1,14 +1,14 @@
 {
   "name": "twri",
-  "productName": "台灣藥品",
-  "pwaVersion": "3.0.3",
+  "productName": "台灣水庫",
+  "pwaVersion": "1.0.0",
   "version": "1.0.0",
   "license": "MIT",
   "keywords": [
-    "藥品",
+    "水庫",
     "Drug"
   ],
-  "description": "台灣藥品查詢app可查詢藥品全名、英文名、用法用量、主成分。App支援離線瀏覽、字型調整。",
+  "description": "台灣水庫 app 可查詢全台水庫儲水量。",
   "repository": "https://github.com/MrMYHuang/twri",
   "author": {
     "name": "Meng-Yuan Huang",
@@ -39,9 +39,11 @@
     "extends": "react-app"
   },
   "dependencies": {
+    "@types/d3": "^7.0.0",
     "@types/semver": "^7.3.7",
     "adm-zip": "^0.5.5",
     "axios": "^0.21.1",
+    "d3": "^7.0.0",
     "electron-window-state": "^5.0.3",
     "node-downloader-helper": "^1.0.18",
     "semver": "^7.3.5"

@@ -37,12 +37,9 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import SettingsPage from './pages/SettingsPage';
-import BookmarkPage from './pages/BookmarkPage';
+import HomePage from './pages/HomePage';
 import Globals from './Globals';
-import DictionaryPage from './pages/DictionaryPage';
 import ShareTextModal from './components/ShareTextModal';
-import DownloadModal from './components/DownloadModal';
-import DrugPage from './pages/DrugPage';
 
 const electronBackendApi: any = (window as any).electronBackendApi;
 
@@ -92,7 +89,6 @@ interface State {
   showToast: boolean;
   toastMessage: string;
   showUpdateAlert: boolean;
-  showDataDownloadEndAlert: boolean;
   showRestoreAppSettingsToast: boolean;
   downloadModal: any;
 }
@@ -164,7 +160,6 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
       showUpdateAlert: false,
       showRestoreAppSettingsToast: (queryParams.settings != null && this.originalAppSettingsStr != null) || false,
       showToast: false,
-      showDataDownloadEndAlert: false,
       toastMessage: '',
       downloadModal: { progress: 0, show: false }
     };
@@ -202,7 +197,6 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
       db.createObjectStore('store');
       console.log(`DB store created.`);
     };
-    this.loadTwdData();
   }
 
   restoreAppSettings() {
@@ -306,16 +300,12 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
           <IonTabs>
             <IonRouterOutlet animated={false}>
               {/* The following route is for backward compatibility. */}
-              <Route path={`${Globals.pwaUrl}/:tab(bookmarks)`} render={(props: any) => <BookmarkPage {...props} />} exact={true} />
-              <Route path={`${Globals.pwaUrl}/:tab(dictionary)/:mode(search)/:keyword?`} render={(props: any) => <DictionaryPage {...props} />} exact={true} />
-              <Route path={`${Globals.pwaUrl}/:tab(dictionary)/:mode(searchCH)/:keyword?`} render={(props: any) => <DictionaryPage {...props} />} exact={true} />
-              <Route path={`${Globals.pwaUrl}/:tab(dictionary)/:mode(drug)/:keyword?`} render={(props: any) => <DrugPage {...props} />} exact={true} />
-              <Route path={`${Globals.pwaUrl}/:tab(dictionary)/:mode(chineseHerb)/:keyword?`} render={(props: any) => <DrugPage {...props} />} exact={true} />
+              <Route path={`${Globals.pwaUrl}/:tab(home)`} render={(props: any) => <HomePage {...props} />} exact={true} />
               <Route path={`${Globals.pwaUrl}/settings`} render={(props: any) => <SettingsPage {...props} />} />
               <Route path={`${Globals.pwaUrl}/`} render={() => { return this.routeByQueryString(); }} exact={true} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
-              <IonTabButton tab="bookmarks" href={`${Globals.pwaUrl}/bookmarks`}>
+              <IonTabButton tab="home" href={`${Globals.pwaUrl}/home`}>
                 <IonIcon icon={bookmark} />
               </IonTabButton>
               <IonTabButton tab="dictionay" href={`${Globals.pwaUrl}/dictionary/search`}>
@@ -337,7 +327,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
             this.registrationNew?.installing?.postMessage({ type: 'SKIP_WAITING' });
             this.registrationNew?.waiting?.postMessage({ type: 'SKIP_WAITING' });
           }}
-          header={'發現app更新，避免運作異常，請重啟app或關閉相關分頁!然後可至設定頁檢查版本號。'}
+          header={'發現 app 更新，避免運作異常，請重啟 app 或關閉相關分頁!然後可至設定頁檢查版本號。'}
           buttons={[
             {
               text: '關閉',
@@ -372,38 +362,11 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
           }}
         />
 
-        <DownloadModal
-          {...{
-            item: this.state.downloadModal.item,
-            progress: this.state.downloadModal.progress,
-            showModal: this.state.downloadModal.show,
-            ...this.props
-          }}
-        />
-
-        <IonAlert
-          cssClass='uiFont'
-          isOpen={this.state.showDataDownloadEndAlert}
-          backdropDismiss={false}
-          header={'藥品資料下載完成！'}
-          buttons={[
-            {
-              text: '關閉',
-              cssClass: 'primary uiFont',
-              handler: (value) => {
-                this.setState({
-                  showDataDownloadEndAlert: false,
-                });
-              },
-            },
-          ]}
-        />
-
         <IonToast
           cssClass='uiFont'
           isOpen={this.state.showRestoreAppSettingsToast}
           onDidDismiss={() => this.setState({ showRestoreAppSettingsToast: false })}
-          message={`已套用app連結中的設定，是否還原設定？`}
+          message={`已套用 app 連結中的設定，是否還原設定？`}
           buttons={[
             {
               text: '取消',

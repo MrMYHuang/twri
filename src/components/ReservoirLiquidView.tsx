@@ -15,7 +15,7 @@ interface PageProps extends Props, RouteComponentProps<{
 interface State {
 }
 
-class _DownloadModal extends React.Component<PageProps, State> {
+class _ReservoirLiquidView extends React.Component<PageProps, State> {
 
   constructor(props: any) {
     super(props);
@@ -52,4 +52,4 @@ const mapStateToProps = (state: any /*, ownProps*/) => {
 
 export default connect(
   mapStateToProps,
-)(_DownloadModal);
+)(_ReservoirLiquidView);
