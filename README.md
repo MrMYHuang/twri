@@ -1,31 +1,16 @@
-# 台灣水庫資訊(Taiwan Drug Info)
+# 台灣水庫資訊(Taiwan Reservoir Info)
 
 ## <a id='feature'>特色</a>
 
-搜尋水庫、全文檢索、書籤功能、網址分享、離線瀏覽、佈景主題切換、字型調整、app更新、跨平台、無廣告、開放原始碼。
+網址分享、佈景主題切換、字型調整、app更新、跨平台、無廣告、開放原始碼。
 
 ## 說明
 
-台灣水庫資訊 (Taiwan Reservoir Info)，簡寫twri，使用台灣政府開放資料之《全部水庫許可證資料集》，支援以下功能
+台灣水庫資訊 (Taiwan Reservoir Info)，簡寫 twri，使用台灣政府開放資料之《水庫水情資料》，支援以下功能
 
-* <a id='search'>搜尋水庫</a>
-  1. 西藥
-  2. 中藥
-* <a id='bookmark'>書籤</a>
-* <a id='shareAppLink'>網址分享</a>
-  1. 用瀏覽器開啟此 app 並開啟某水庫後，可複製其網址分享給別人開啟。
-  2. 也可以使用瀏覽器內建書籤功能儲存水庫網址。與 app 書籤功能相比，可以依個人使習慣作選擇。
-  3. App 內建"分享此頁"功能，可複製水庫連結至作業系統剪貼簿或產生 QR code，可分享給其他人。
-
-* 離線瀏覽
 * 佈景主題切換
 * 字型調整
   1. 考量視力不佳的使用者，提供最大128 px的字型設定。若有需要更大字型，請E-mail或GitHub聯絡開發者新增。
-* <a id='shortcuts'>App捷徑</a>
-  1. Windows, Android的Chrome(建議最新版)使用者，滑鼠右鍵或長按app圖示，可存取app功能捷徑，目前有：搜尋西藥、搜尋中藥、(開啟)第1書籤。
-
-  <img src='https://github.com/MrMYHuang/twri/raw/main/docs/images/AppShortcuts.png' width='50%' />
-
 
 * <a id='update'>App更新</a>
 
@@ -55,10 +40,9 @@
 
 ## <a id='install'>安裝</a>
 
-此app目前有2種取得、安裝方式：
+此app目前有1種取得、安裝方式：
 
   1. Chrome、Safari網頁瀏覽器。
-  2. App 商店。
 
 ### <a id='web-app'>從瀏覽器開啟/安裝</a>
 請用Chrome (Windows, macOS, Linux, Android作業系統使用者)、Safari (iOS (iPhone, iPad)使用者)瀏覽器開啟以下網址：
@@ -93,31 +77,6 @@ https://myhpwa.github.io/twri
 
 <img src='https://github.com/MrMYHuang/twri/raw/main/docs/images/Safari/AppIcon.png' width='50%' />
 
-### <a id='storeApp'>從App商店安裝</a>
-#### Android - 使用Google Play Store
-<a href='https://play.google.com/store/apps/details?id=io.github.myhpwa.twri' target='_blank'>
-<img width="auto" height='60px' alt='Google Play立即下載' src='https://github.com/MrMYHuang/twri/raw/main/docs/images/zh-tw_badge_web_generic.png'/>
-</a>
-
-#### iOS 14.0+ (iPhone), iPadOS 14.0+ (iPad) - 使用App Store
-<a href='https://apps.apple.com/us/app/id1576303166' target='_blank'>
-<img width="auto" height='60px' src='https://github.com/MrMYHuang/twri/raw/main/docs/images/Download_on_the_App_Store_Badge_CNTC_RGB_blk_100217.svg'/>
-</a>
-
-#### macOS 10.10+ - 使用App Store
-<a href='https://apps.apple.com/us/app/id1576303166' target='_blank'>
-<img width="auto" height='60px' src='https://github.com/MrMYHuang/twri/raw/main/docs/images/Download_on_the_Mac_App_Store_Badge_CNTC_RGB_blk_100217.svg'/>
-</a>
-
-#### Windows 10 - 使用Microsoft Store
-<a href='https://www.microsoft.com/store/apps/9N0Z88W4ZC93' target='_blank'>
-<img width="auto" height='60px' src='https://developer.microsoft.com/store/badges/images/Chinese-Traditional_get-it-from-MS.png' alt='Chinese Traditional badge'/>
-</a>
-
-#### Linux - 使用Snap Store
-<a href='https://snapcraft.io/twri' target='_blank'>
-<img width="auto" height='60px' src='https://github.com/MrMYHuang/twri/raw/main/docs/images/[TW]-snap-store-black@2x.png' />
-</a>
 
 ## <a id='knownIssues'>已知問題</a>
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
@@ -132,6 +91,7 @@ https://myhpwa.github.io/twri
 
 ## 第三方軟體版權聲明
 
-1. 水庫水情資料集 ( https://data.gov.tw/dataset/45501 )
+1. 水庫每日營運狀況 ( https://data.gov.tw/dataset/41568 )
+2. 水庫水情資料集 ( https://data.gov.tw/dataset/45501 )
 
-    此 app 使用《水庫水情資料集》。此開放資料依政府資料開放授權條款 (Open Government Data License) 進行公眾釋出，使用者於遵守本條款各項規定之前提下，得利用之。政府資料開放授權條款：https://data.gov.tw/license
+    此 app 使用《水庫每日營運狀況》、《水庫水情資料》。此開放資料依政府資料開放授權條款 (Open Government Data License) 進行公眾釋出，使用者於遵守本條款各項規定之前提下，得利用之。政府資料開放授權條款：https://data.gov.tw/license

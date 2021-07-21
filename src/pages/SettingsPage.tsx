@@ -1,17 +1,15 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonRange, IonIcon, IonLabel, IonToggle, IonButton, IonAlert, IonSelect, IonSelectOption, IonToast, withIonLifeCycle, IonProgressBar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonRange, IonIcon, IonLabel, IonToggle, IonButton, IonAlert, IonSelect, IonSelectOption, IonToast, withIonLifeCycle } from '@ionic/react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import Globals from '../Globals';
-import { helpCircle, text, refreshCircle, musicalNotes, colorPalette, shareSocial, bug, download, print, informationCircle } from 'ionicons/icons';
+import { helpCircle, text, colorPalette, shareSocial, bug, download, informationCircle } from 'ionicons/icons';
 import './SettingsPage.css';
 import PackageInfos from '../../package.json';
-import { Bookmark, } from '../models/Bookmark';
 
 interface StateProps {
   showFontLicense: boolean;
   twdDataDownloadRatio: number;
-  showUpdateDrugDataDone: boolean;
   showClearAlert: boolean;
   showToast: boolean;
   toastMessage: string;
@@ -25,7 +23,6 @@ interface Props {
   settings: any;
   voiceURI: string;
   speechRate: number;
-  bookmarks: [Bookmark];
   mainVersion: string | null;
   cbetaOfflineDbMode: boolean;
 }
@@ -43,7 +40,6 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
     this.state = {
       showFontLicense: false,
       twdDataDownloadRatio: 0,
-      showUpdateDrugDataDone: false,
       showClearAlert: false,
       showToast: false,
       toastMessage: '',
@@ -51,28 +47,6 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
   }
 
   ionViewWillEnter() {
-  }
-
-  updateBookmark(newBookmarks: Array<Bookmark>, newBookmark: Bookmark) {
-    const updateIndex = newBookmarks.findIndex((b: Bookmark) => b.uuid === newBookmark.uuid);
-    if (updateIndex === -1) {
-      console.error(`Update bookmark fails! Can't find the original bookmark with UUID: ${newBookmark.uuid}`);
-    } else {
-      newBookmarks[updateIndex] = newBookmark;
-    }
-    return;
-  }
-
-  async updateDrugData() {
-    this.setState({ twdDataDownloadRatio: 0 });
-    for (let i = 0; i < Globals.durgResources.length; i++) {
-      let item = Globals.durgResources[i];
-      const twdData = await Globals.downloadTwdData(item.url, (progress: number) => {
-        this.setState({ twdDataDownloadRatio: (i + (progress / 100)) / Globals.durgResources.length });
-      });
-      Globals.saveFileToIndexedDB(item.dataKey, twdData);
-    }
-    this.setState({ twdDataDownloadRatio: 1, showUpdateDrugDataDone: true });
   }
 
   render() {
@@ -145,7 +119,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               <IonIcon icon={download} slot='start' />
               <div className='contentBlock'>
                 <div style={{ flexDirection: 'column' }}>
-                  <IonLabel className='ion-text-wrap uiFont'>App設定與書籤</IonLabel>
+                  <IonLabel className='ion-text-wrap uiFont'>App設定</IonLabel>
                   <div style={{ textAlign: 'right' }}>
                     <IonButton fill='outline' shape='round' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={async (e) => {
                       const settingsJsonUri = `data:text/json;charset=utf-8,${encodeURIComponent(localStorage.getItem('Settings.json') || '')}`;
@@ -163,7 +137,6 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                         JSON.parse(fileText);
                         localStorage.setItem('Settings.json', fileText);
                         this.props.dispatch({ type: 'LOAD_SETTINGS' });
-                        this.updateDrugData();
                       } catch (e) {
                         console.error(e);
                         console.error(new Error().stack);
@@ -215,22 +188,6 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
             </IonItem>
             <IonItem>
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
-              <IonIcon icon={refreshCircle} slot='start' />
-              <div style={{ width: '100%' }}>
-                <IonLabel className='ion-text-wrap uiFont'>更新離線水庫資料</IonLabel>
-                <IonProgressBar value={this.state.twdDataDownloadRatio} />
-              </div>
-              <IonButton fill='outline' shape='round' slot='end' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={async (e) => this.updateDrugData()}>更新</IonButton>
-              <IonToast
-                cssClass='uiFont'
-                isOpen={this.state.showUpdateDrugDataDone}
-                onDidDismiss={() => this.setState({ showUpdateDrugDataDone: false })}
-                message={`離線水庫資料更新完畢！`}
-                duration={2000}
-              />
-            </IonItem>
-            <IonItem>
-              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={colorPalette} slot='start' />
               <IonLabel className='ion-text-wrap uiFont'>{Globals.appSettings['theme']}</IonLabel>
               <IonSelect slot='end'
@@ -276,21 +233,6 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                     Globals.updateCssVars(this.props.settings);
                   }} />
                 </div>
-              </div>
-            </IonItem>
-            <IonItem>
-              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
-              <IonIcon icon={text} slot='start' />
-              <div className="contentBlock">
-                <IonLabel className='ion-text-wrap uiFont'>{Globals.appSettings['fontSize']}: <span className='textFont'>{this.props.settings.fontSize}</span></IonLabel>
-                <IonRange min={10} max={128} pin={true} snaps={true} value={this.props.settings.fontSize} onIonChange={e => {
-                  this.props.dispatch({
-                    type: "SET_KEY_VAL",
-                    key: 'fontSize',
-                    val: e.detail.value,
-                  });
-                  Globals.updateCssVars(this.props.settings);
-                }} />
               </div>
             </IonItem>
             {/*
@@ -370,7 +312,6 @@ const mapStateToProps = (state: any /*, ownProps*/) => {
     theme: state.settings.theme,
     uiFontSize: state.settings.uiFontSize,
     speechRate: state.settings.speechRate,
-    bookmarks: state.settings.bookmarks,
     voiceURI: state.settings.voiceURI,
     mainVersion: state.tmpSettings.mainVersion,
   }

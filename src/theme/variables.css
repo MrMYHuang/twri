@@ -5,7 +5,6 @@
 
 :root {
     --ui-font-size: 24px;
-    --text-font-size: 32px;
     --print-text-color: black;
     --print-background: white;
 }
@@ -162,16 +161,6 @@ body.dark {
 
 .alert-sub-title, .alert-message {
     font-size: var(--ui-font-size)px !important;
-}
-
-.textFont {
-    font-family: var(--ion-font-family) !important;
-    font-size: var(--text-font-size) !important;
-}
-
-.textFontX3 {
-    font-family: var(--ion-font-family) !important;
-    font-size: calc(var(--text-font-size) * 3) !important;
 }
 
 .uiFont, .searchbar-input, .alert-radio-label, .action-sheet-button {

@@ -5,34 +5,17 @@
     {
       "src": "assets/icon/icon.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "1024x1024"
     },
     {
       "src": "assets/icon/icon.png",
       "type": "image/png",
-      "sizes": "512x512",
+      "sizes": "1024x1024",
       "purpose": "maskable"
     }
   ],
   "scope": "/twri/",
   "start_url": "/twri/",
-  "shortcuts": [
-    {
-      "name": "第1書籤",
-      "url": "/twri/bookmarks?item=0",
-      "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
-    },
-    {
-      "name": "搜尋西藥",
-      "url": "/twri/dictionary/search",
-      "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
-    },
-    {
-      "name": "搜尋中藥",
-      "url": "/twri/dictionary/searchCH",
-      "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
-    }
-  ],
   "display": "standalone",
   "theme_color": "black",
   "background_color": "black"

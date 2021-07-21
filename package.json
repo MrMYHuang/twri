@@ -6,7 +6,7 @@
   "license": "MIT",
   "keywords": [
     "水庫",
-    "Drug"
+    "水量"
   ],
   "description": "台灣水庫 app 可查詢全台水庫儲水量。",
   "repository": "https://github.com/MrMYHuang/twri",

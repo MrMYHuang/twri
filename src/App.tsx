@@ -16,7 +16,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { connect, Provider } from 'react-redux';
 import queryString from 'query-string';
 import getSavedStore from './redux/store';
-import { bookmark, settings, search } from 'ionicons/icons';
+import { water, settings } from 'ionicons/icons';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -189,14 +189,6 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
         }
       });
     }
-
-    const dbOpenReq = indexedDB.open(Globals.twriDb);
-    // Init store in indexedDB if necessary.
-    dbOpenReq.onupgradeneeded = function (event: IDBVersionChangeEvent) {
-      var db = (event.target as any).result;
-      db.createObjectStore('store');
-      console.log(`DB store created.`);
-    };
   }
 
   restoreAppSettings() {
@@ -207,39 +199,6 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
     }
     document.body.classList.toggle(`theme${this.props.settings.theme}`, true);
     Globals.updateCssVars(this.props.settings);
-  }
-
-  async loadTwdData() {
-    store.dispatch({
-      type: "TMP_SET_KEY_VAL",
-      key: 'loadingTwdData',
-      val: true,
-    });
-    let twdData: any;
-    for (let i = 0; i < Globals.durgResources.length; i++) {
-      let item = Globals.durgResources[i];
-      try {
-        twdData = await Globals.getFileFromIndexedDB(item.dataKey);
-      } catch (err) {
-        this.setState({ downloadModal: { item: item.item, show: true, progress: 0 } });
-        twdData = await Globals.downloadTwdData(item.url, (progress: number) => {
-          this.setState({ downloadModal: { item: item.item, show: true, progress: progress } });
-        });
-        this.setState({ downloadModal: { item: item.item, show: false, progress: 100 } });
-        Globals.saveFileToIndexedDB(item.dataKey, twdData);
-      }
-
-      if (i === 0) {
-        Globals.dictItems = twdData;
-      } else {
-        Globals.chineseHerbsItems = twdData;
-      }
-    }
-    store.dispatch({
-      type: "TMP_SET_KEY_VAL",
-      key: 'loadingTwdData',
-      val: false,
-    });
   }
 
   // Prevent device from sleeping.
@@ -289,7 +248,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
       }
       return <Redirect to={route + query} />;
     } else if (window.location.pathname === `${Globals.pwaUrl}/`) {
-      return <Redirect to={`${Globals.pwaUrl}/bookmarks`} />;
+      return <Redirect to={`${Globals.pwaUrl}/home`} />;
     }
   }
 
@@ -306,10 +265,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
               <IonTabButton tab="home" href={`${Globals.pwaUrl}/home`}>
-                <IonIcon icon={bookmark} />
-              </IonTabButton>
-              <IonTabButton tab="dictionay" href={`${Globals.pwaUrl}/dictionary/search`}>
-                <IonIcon icon={search} />
+                <IonIcon icon={water} />
               </IonTabButton>
               <IonTabButton tab="settings" href={`${Globals.pwaUrl}/settings`}>
                 <IonIcon icon={settings} />

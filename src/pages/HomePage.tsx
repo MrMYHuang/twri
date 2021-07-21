@@ -1,20 +1,23 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonReorderGroup, IonReorder, IonItem, IonLabel, withIonLifeCycle, IonItemSliding, IonItemOptions, IonItemOption, IonIcon, IonButton, IonToast } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, withIonLifeCycle, IonToast, IonButton, IonIcon, IonLoading, IonLabel } from '@ionic/react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Bookmark } from '../models/Bookmark';
-import { swapVertical } from 'ionicons/icons';
 import Globals from '../Globals';
-import { liquidFillGaugeDefaultSettings, loadLiquidFillGauge } from '../liquidFillGauge';
+import ReservoirLiquidView from '../components/ReservoirLiquidView';
+import { DailyOperationalStatisticsOfReservoir } from '../models/DailyOperationalStatisticsOfReservoir';
+import { ReservoirConditionData } from '../models/ReservoirConditionData';
+import './Home.css';
+import { refresh, shareSocial } from 'ionicons/icons';
 
 interface Props {
   dispatch: Function;
-  bookmarks: [Bookmark];
   fontSize: number;
 }
 
 interface State {
-  reorder: boolean;
+  isLoading: boolean;
+  fetchError: boolean;
+  reservoirs: DailyOperationalStatisticsOfReservoir[];
   showToast: boolean;
   toastMessage: string;
 }
@@ -26,56 +29,120 @@ interface PageProps extends Props, RouteComponentProps<{
 
 const helpDoc = <>
   <div style={{ fontSize: 'var(--ui-font-size)', textAlign: 'center' }}><a href="https://github.com/MrMYHuang/twri#web-app" target="_new">程式安裝說明</a></div>
-  <div style={{ fontSize: 'var(--ui-font-size)', textAlign: 'center' }}><a href="https://github.com/MrMYHuang/twri#shortcuts" target="_new">程式捷徑</a></div>
 </>;
 
 class _HomePage extends React.Component<PageProps, State> {
-  bookmarkListRef: React.RefObject<HTMLIonListElement>;
   constructor(props: any) {
     super(props);
     this.state = {
-      reorder: false,
+      isLoading: true,
+      fetchError: false,
+      reservoirs: [],
       showToast: false,
       toastMessage: '',
     }
-    this.bookmarkListRef = React.createRef<HTMLIonListElement>();
   }
 
   ionViewWillEnter() {
-    var config4 = liquidFillGaugeDefaultSettings();
-    config4.circleThickness = 0.15;
-    config4.circleColor = "#808015";
-    config4.textColor = "#555500";
-    config4.waveTextColor = "#FFFFAA";
-    config4.waveColor = "#AAAA39";
-    config4.textVertPosition = 0.8;
-    config4.waveAnimateTime = 1000;
-    config4.waveHeight = 0.05;
-    config4.waveAnimate = true;
-    config4.waveRise = false;
-    config4.waveHeightScaling = false;
-    config4.waveOffset = 0.25;
-    config4.textSize = 0.75;
-    config4.waveCount = 3;
-    var gauge5 = loadLiquidFillGauge("fillgauge1", 60.44, config4);
+    this.fetchData();
   }
 
+  async fetchData() {
+    this.setState({ isLoading: true });
+    try {
+      let obj: any;
+      const res = await Globals.axiosInstance.get(Globals.twrDataUrl, {
+        responseType: 'arraybuffer',
+      });
+      obj = JSON.parse(new TextDecoder().decode(res.data)) as any;
+      let data = obj.DailyOperationalStatisticsOfReservoirs_OPENDATA as DailyOperationalStatisticsOfReservoir[];
+      data = data.filter(v => v.EffectiveCapacity > 1000);
+
+      const resWater = await Globals.axiosInstance.get(Globals.twrWaterDataUrl, {
+        responseType: 'arraybuffer',
+      });
+      obj = JSON.parse(new TextDecoder().decode(resWater.data)) as any;
+      let dataWater = obj.ReservoirConditionData_OPENDATA as ReservoirConditionData[];
+
+      let dataWaterReduced: any = {};
+      dataWater.forEach((d) => {
+        if (dataWaterReduced[d.ReservoirIdentifier] == null) {
+          dataWaterReduced[d.ReservoirIdentifier] = d;
+          return;
+        }
+
+
+        const originD = dataWaterReduced[d.ReservoirIdentifier] as ReservoirConditionData;
+        if (new Date(originD.ObservationTime) > new Date(d.ObservationTime)) {
+          dataWaterReduced[d.ReservoirIdentifier] = d;
+        }
+      });
+
+      data.forEach((d) => {
+        if (dataWaterReduced[d.ReservoirIdentifier] != null) {
+          d.latestWaterData = dataWaterReduced[d.ReservoirIdentifier];
+        }
+      });
+
+      this.setState({ isLoading: false, fetchError: false, reservoirs: data });
+    } catch (error) {
+      this.setState({ isLoading: false, fetchError: true });
+    }
+  }
+
+  getReservoirInfos() {
+    return this.state.reservoirs.map((info, i) =>
+      <ReservoirLiquidView key={`ReservoirLiquidView${i}`}
+        {...{
+          info: info,
+          ...this.props
+        }} />
+    );
+  }
 
   render() {
     return (
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonTitle style={{ fontSize: 'var(--ui-font-size)' }}>書籤</IonTitle>
+            <IonTitle style={{ fontSize: 'var(--ui-font-size)' }}>水庫資訊</IonTitle>
 
-            <IonButton fill={this.state.reorder ? 'solid' : 'clear'} slot='end'
-              onClick={ev => this.setState({ reorder: !this.state.reorder })}>
-              <IonIcon icon={swapVertical} slot='icon-only' />
+            <IonButton fill="clear" slot='end' onClick={e => {
+              this.fetchData();
+            }}>
+              <IonIcon icon={refresh} slot='icon-only' />
+            </IonButton>
+
+            <IonButton fill="clear" slot='end' onClick={e => {
+              this.props.dispatch({
+                type: "TMP_SET_KEY_VAL",
+                key: 'shareTextModal',
+                val: {
+                  show: true,
+                  text: decodeURIComponent(window.location.href),
+                },
+              });
+            }}>
+              <IonIcon icon={shareSocial} slot='icon-only' />
             </IonButton>
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          <svg id="fillgauge1" width="250" height="250"></svg>
+
+          {this.state.isLoading ?
+            <IonLoading
+              cssClass='uiFont'
+              isOpen={this.state.isLoading}
+              message={'載入中...'}
+            />
+            :
+            this.state.fetchError ?
+              Globals.fetchErrorContent
+              :
+              <div className='ReservoirList'>
+                {this.getReservoirInfos()}
+              </div>
+          }
 
           {helpDoc}
 
@@ -94,7 +161,6 @@ class _HomePage extends React.Component<PageProps, State> {
 
 const mapStateToProps = (state: any /*, ownProps*/) => {
   return {
-    bookmarks: state.settings.bookmarks,
   }
 };
 
