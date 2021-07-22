@@ -84,7 +84,7 @@ const Globals = {
   twrDataUrl,
   twrWaterDataUrl,
   axiosInstance,
-  storeFile: 'Settings.json',
+  storeFile: 'TwriSettings.json',
   getLog,
   enableAppLog,
   disableAppLog,
