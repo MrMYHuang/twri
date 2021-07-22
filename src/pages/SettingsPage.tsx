@@ -6,6 +6,7 @@ import Globals from '../Globals';
 import { helpCircle, text, colorPalette, shareSocial, bug, download, informationCircle } from 'ionicons/icons';
 import './SettingsPage.css';
 import PackageInfos from '../../package.json';
+import { Settings } from '../models/Settings';
 
 interface StateProps {
   showFontLicense: boolean;
@@ -20,7 +21,7 @@ interface Props {
   hasAppLog: boolean;
   theme: number;
   uiFontSize: number;
-  settings: any;
+  settings: Settings;
   voiceURI: string;
   speechRate: number;
   mainVersion: string | null;
@@ -156,7 +157,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                       backdropDismiss={false}
                       onDidPresent={(ev) => {
                       }}
-                      header={'重置會還原 app 設定預設值並清除書籤、離線資料檔！確定重置？'}
+                      header={'重置會還原 app 設定預設值並清除書籤！確定重置？'}
                       buttons={[
                         {
                           text: '取消',
@@ -185,6 +186,36 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                   </div>
                 </div>
               </div>
+            </IonItem>
+            <IonItem>
+              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
+              <IonIcon icon={colorPalette} slot='start' />
+              <IonLabel className='ion-text-wrap uiFont'>{Globals.appSettings['iconSize']}</IonLabel>
+              <IonSelect slot='end'
+                value={+this.props.settings.iconSize}
+                style={{ fontSize: 'var(--ui-font-size)' }}
+                interface='popover'
+                interfaceOptions={{ cssClass: 'twrithemes' }}
+                onIonChange={e => {
+                  const value = +e.detail.value;
+                  // Important! Because it can results in rerendering of this component but
+                  // store states (this.props) of this component is not updated yet! And IonSelect value will be changed
+                  // back to the old value and onIonChange will be triggered again!
+                  // Thus, we use this check to ignore this invalid change.
+                  if (+this.props.settings.iconSize === value) {
+                    return;
+                  }
+
+                  this.props.dispatch({
+                    type: "SET_KEY_VAL",
+                    key: 'iconSize',
+                    val: value,
+                  });
+                }}>
+                <IonSelectOption className='uiFont' value={125}>小</IonSelectOption>
+                <IonSelectOption className='uiFont' value={250}>中</IonSelectOption>
+                <IonSelectOption className='uiFont' value={500}>大</IonSelectOption>
+              </IonSelect>
             </IonItem>
             <IonItem>
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}

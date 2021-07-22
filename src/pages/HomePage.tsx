@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, withIonLifeCycle, IonToast, IonButton, IonIcon, IonLoading } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, withIonLifeCycle, IonToast, IonButton, IonIcon, IonLoading, IonAlert } from '@ionic/react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Globals from '../Globals';
@@ -7,17 +7,20 @@ import ReservoirLiquidView from '../components/ReservoirLiquidView';
 import { DailyOperationalStatisticsOfReservoir } from '../models/DailyOperationalStatisticsOfReservoir';
 import { ReservoirConditionData } from '../models/ReservoirConditionData';
 import './Home.css';
-import { refresh, shareSocial } from 'ionicons/icons';
+import { bulb, refresh, shareSocial, information } from 'ionicons/icons';
+import { Settings } from '../models/Settings';
 
 interface Props {
   dispatch: Function;
   fontSize: number;
+  settings: Settings;
 }
 
 interface State {
   isLoading: boolean;
   fetchError: boolean;
   reservoirs: DailyOperationalStatisticsOfReservoir[];
+  showInfo: boolean;
   showToast: boolean;
   toastMessage: string;
 }
@@ -38,6 +41,7 @@ class _HomePage extends React.Component<PageProps, State> {
       isLoading: true,
       fetchError: false,
       reservoirs: [],
+      showInfo: false,
       showToast: false,
       toastMessage: '',
     }
@@ -56,7 +60,6 @@ class _HomePage extends React.Component<PageProps, State> {
       });
       obj = JSON.parse(new TextDecoder().decode(res.data)) as any;
       let data = obj.DailyOperationalStatisticsOfReservoirs_OPENDATA as DailyOperationalStatisticsOfReservoir[];
-      data = data.filter(v => v.EffectiveCapacity > 1000);
 
       const resWater = await Globals.axiosInstance.get(Globals.twrWaterDataUrl, {
         responseType: 'arraybuffer',
@@ -70,7 +73,6 @@ class _HomePage extends React.Component<PageProps, State> {
           dataWaterReduced[d.ReservoirIdentifier] = d;
           return;
         }
-
 
         const originD = dataWaterReduced[d.ReservoirIdentifier] as ReservoirConditionData;
         if (new Date(originD.ObservationTime) > new Date(d.ObservationTime)) {
@@ -91,8 +93,9 @@ class _HomePage extends React.Component<PageProps, State> {
   }
 
   getReservoirInfos() {
-    return this.state.reservoirs.map((info, i) =>
-      <ReservoirLiquidView key={`ReservoirLiquidView${i}`}
+    const reservoirs = this.props.settings.showAllReservoirs ? this.state.reservoirs : this.state.reservoirs.filter(v => v.EffectiveCapacity > 1000);
+    return reservoirs.map((info) =>
+      <ReservoirLiquidView key={`ReservoirLiquidView${info.ReservoirIdentifier}`}
         {...{
           info: info,
           ...this.props
@@ -106,6 +109,22 @@ class _HomePage extends React.Component<PageProps, State> {
         <IonHeader>
           <IonToolbar>
             <IonTitle style={{ fontSize: 'var(--ui-font-size)' }}>水庫資訊</IonTitle>
+
+            <IonButton fill="clear" slot='end' onClick={e => {
+              this.setState({ showInfo: true });
+            }}>
+              <IonIcon icon={information} slot='icon-only' />
+            </IonButton>
+
+            <IonButton fill={this.props.settings.showAllReservoirs ? 'solid' : 'clear'} slot='end' onClick={e => {
+              this.props.dispatch({
+                type: "SET_KEY_VAL",
+                key: 'showAllReservoirs',
+                val: !this.props.settings.showAllReservoirs,
+              });
+            }}>
+              <IonIcon icon={bulb} slot='icon-only' />
+            </IonButton>
 
             <IonButton fill="clear" slot='end' onClick={e => {
               this.fetchData();
@@ -146,6 +165,24 @@ class _HomePage extends React.Component<PageProps, State> {
 
           {helpDoc}
 
+          <IonAlert
+            cssClass='uiFont'
+            isOpen={this.state.showInfo}
+            backdropDismiss={false}
+            header={'有效蓄水量單位：萬立方公尺'}
+            buttons={[
+              {
+                text: '關閉',
+                cssClass: 'primary uiFont',
+                handler: (value) => {
+                  this.setState({
+                    showInfo: false,
+                  });
+                },
+              }
+            ]}
+          />
+
           <IonToast
             cssClass='uiFont'
             isOpen={this.state.showToast}
@@ -161,6 +198,7 @@ class _HomePage extends React.Component<PageProps, State> {
 
 const mapStateToProps = (state: any /*, ownProps*/) => {
   return {
+    settings: state.settings
   }
 };
 

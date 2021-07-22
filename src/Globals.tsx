@@ -89,6 +89,7 @@ const Globals = {
   enableAppLog,
   disableAppLog,
   appSettings: {
+    'iconSize': '圖示大小',
     'theme': '佈景主題',
     'uiFontSize': 'UI字型大小',
   } as Record<string, string>,

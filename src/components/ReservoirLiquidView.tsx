@@ -2,8 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { liquidFillGaugeDefaultSettings, loadLiquidFillGauge } from '../liquidFillGauge';
-import { withIonLifeCycle } from '@ionic/react';
 import { DailyOperationalStatisticsOfReservoir } from '../models/DailyOperationalStatisticsOfReservoir';
+import { Settings } from '../models/Settings';
 import './ReservoirLiquidView.css';
 
 interface Props {
@@ -11,7 +11,9 @@ interface Props {
 }
 
 interface PageProps extends Props, RouteComponentProps<{
-}> { }
+}> {
+  settings: Settings;
+}
 
 interface State {
 }
@@ -63,15 +65,21 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
     liquidViewConfig.waveColor = "#ff0080";
   }
 
+  getTime() {
+    const date = new Date(this.props.info.latestWaterData?.ObservationTime ?? 0);
+    return `${date.toLocaleDateString()}, ${date.getHours()} ${date.getHours() >= 12 ? 'PM': 'AM'}`;
+  }
+
   render() {
     return (
-      <div className='Reservoir'>
+      <div className='Reservoir' style={{width: `${this.props.settings.iconSize}px`}}>
         <div className='uiFont title'>{this.props.info.ReservoirName}</div>
         <div className='title'>
-          <svg id={`fillgauge${this.props.info.ReservoirIdentifier}`} width="250" height="250"></svg>
+          <svg id={`fillgauge${this.props.info.ReservoirIdentifier}`} width={`${this.props.settings.iconSize}px`} height={`${this.props.settings.iconSize}px`}></svg>
         </div>
-        <div className='uiFont'>有效蓄水量：{this.props.info.latestWaterData?.EffectiveWaterStorageCapacity}萬立方公尺</div>
-        <div className='uiFont'>觀測時間：{this.props.info.latestWaterData?.ObservationTime}</div>
+        <div className='uiFont'>有效蓄水量：{Math.round(this.props.info.latestWaterData?.EffectiveWaterStorageCapacity || 0)}</div>
+        <div className='uiFont' hidden={!this.props.settings.showAllReservoirs}>有效容量：{Math.round(this.props.info.EffectiveCapacity || 0)}</div>
+        <div className='uiFont'>觀測時間：{this.getTime()}</div>
       </div>
     );
   }
@@ -79,13 +87,12 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
 
 const mapStateToProps = (state: any /*, ownProps*/) => {
   return {
+    settings: state.settings
   }
 };
 
 //const mapDispatchToProps = {};
 
-const ReservoirLiquidView = withIonLifeCycle(_ReservoirLiquidView);
-
 export default connect(
   mapStateToProps,
-)(ReservoirLiquidView);
+)(_ReservoirLiquidView);

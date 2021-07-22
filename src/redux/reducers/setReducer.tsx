@@ -1,4 +1,5 @@
 import Globals from '../../Globals';
+import { Settings } from '../../models/Settings';
 
 // Used to store settings. They will be saved to file.
 export default function reducer(state = {
@@ -28,22 +29,19 @@ export default function reducer(state = {
       break;
     // @ts-ignore
     case "DEFAULT_SETTINGS":
-      newSettings = {};
-    // Don't use break here!
+      newSettings = new Settings();
+      break;
     // eslint-disable-next-line
     default:
       if (Object.keys(newSettings).length === 0) {
-        newSettings = {};
+        newSettings = new Settings();
       }
-      // Setting default values.
-      // version is the setting file version.
-      var keys = ['version', 'hasAppLog', 'theme', 'uiFontSize'];
-      var vals = [1, 1, 1, 24];
-      for (let k = 0; k < keys.length; k++) {
-        if (newSettings[keys[k]] === undefined) {
-          newSettings[keys[k]] = vals[k];
+      const defaultSettings = new Settings();
+      Object.keys(defaultSettings).forEach(key => {
+        if (newSettings[key] === undefined) {
+          newSettings[key] = (defaultSettings as any)[key];
         }
-      }
+      });
   }
   return newSettings;
 }
