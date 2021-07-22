@@ -156,7 +156,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                       backdropDismiss={false}
                       onDidPresent={(ev) => {
                       }}
-                      header={'重置會還原app設定預設值並清除書籤、離線資料檔！確定重置？'}
+                      header={'重置會還原 app 設定預設值並清除書籤、離線資料檔！確定重置？'}
                       buttons={[
                         {
                           text: '取消',
@@ -191,17 +191,17 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               <IonIcon icon={colorPalette} slot='start' />
               <IonLabel className='ion-text-wrap uiFont'>{Globals.appSettings['theme']}</IonLabel>
               <IonSelect slot='end'
-                value={this.props.theme}
+                value={+this.props.theme}
                 style={{ fontSize: 'var(--ui-font-size)' }}
                 interface='popover'
                 interfaceOptions={{ cssClass: 'twrithemes' }}
                 onIonChange={e => {
-                  const value = e.detail.value;
-                  // Important! Because it can results in rerendering of its parent component but
-                  // store states of this component is not updated yet! And IonSelect value is changed
-                  // back to the old value and onIonChange is triggered again!
+                  const value = +e.detail.value;
+                  // Important! Because it can results in rerendering of this component but
+                  // store states (this.props) of this component is not updated yet! And IonSelect value will be changed
+                  // back to the old value and onIonChange will be triggered again!
                   // Thus, we use this check to ignore this invalid change.
-                  if (this.props.theme === value) {
+                  if (+this.props.theme === value) {
                     return;
                   }
 
@@ -235,50 +235,6 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                 </div>
               </div>
             </IonItem>
-            {/*
-            <IonItem>
-              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. * /}
-              <IonIcon icon={print} slot='start' />
-              <IonLabel className='ion-text-wrap uiFont'>合成語音</IonLabel>
-              <IonSelect slot='end'
-                value={this.props.voiceURI}
-                style={{ fontSize: 'var(--ui-font-size)' }}
-                interface='action-sheet'
-                cancelText='取消'
-                onIonChange={e => {
-                  const value = e.detail.value;
-                  if (this.props.voiceURI === value) {
-                    return;
-                  }
-
-                  this.props.dispatch({
-                    type: "SET_KEY_VAL",
-                    key: 'voiceURI',
-                    val: value,
-                  });
-                }}>
-                {
-                  Globals.zhVoices().map((v, i) => <IonSelectOption key={i} className='uiFont blackWhite printVar' value={v.voiceURI}>{v.name}</IonSelectOption>)
-                }
-              </IonSelect>
-            </IonItem>
-            <IonItem>
-              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. * /}
-              <IonIcon icon={musicalNotes} slot='start' />
-              <div className="contentBlock">
-                <div style={{ flexDirection: "column" }}>
-                  <IonLabel className='ion-text-wrap uiFont'><a href="https://github.com/MrMYHuang/twri#text2speech" target="_new">合成語音語速</a>: {this.props.speechRate}</IonLabel>
-                  <IonRange min={0.1} max={1.5} step={0.1} snaps={true} value={this.props.speechRate} onIonChange={e => {
-                    this.props.dispatch({
-                      type: "SET_KEY_VAL",
-                      key: 'speechRate',
-                      val: (e.detail.value as number).toFixed(1),
-                    });
-                  }} />
-                </div>
-              </div>
-            </IonItem>
-          */}
             <IonItem>
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={helpCircle} slot='start' />

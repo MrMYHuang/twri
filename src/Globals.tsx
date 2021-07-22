@@ -5,12 +5,6 @@ const pwaUrl = process.env.PUBLIC_URL || '';
 let twrDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/twrData.json`;
 let twrWaterDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/twrDataWater.json`;
 
-if (process.env.NODE_ENV !== 'production') {
-  const corsProxyUrl = 'http://localhost:8080/';
-  twrDataUrl = twrDataUrl.replace(/(http|https):\/\//, corsProxyUrl);
-  twrWaterDataUrl = twrWaterDataUrl.replace(/(http|https):\/\//, corsProxyUrl);
-}
-
 const axiosInstance = axios.create({
   baseURL: twrDataUrl,
   timeout: 8000,

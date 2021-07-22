@@ -82,6 +82,8 @@ https://myhpwa.github.io/twri
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* 1.0.1:
+  * 修正佈景主題切換後，所選項目文字沒出現的問題。
 * 1.0.0:
   * 第1版。
 
