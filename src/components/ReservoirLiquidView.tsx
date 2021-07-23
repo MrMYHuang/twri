@@ -44,11 +44,15 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
     liquidViewConfig.waveOffset = 0.25;
     liquidViewConfig.textSize = 0.75;
     liquidViewConfig.waveCount = 3;
-    loadLiquidFillGauge(
-      `fillgauge${this.props.info.ReservoirIdentifier}`,
-      EffectiveWaterStorageCapacityPercent.toFixed(1),
-      liquidViewConfig
-    );
+    try {
+      loadLiquidFillGauge(
+        `fillgauge${this.props.info.ReservoirIdentifier}`,
+        EffectiveWaterStorageCapacityPercent.toFixed(1),
+        liquidViewConfig
+      );
+    } catch (error) {
+      // Ignore.
+    }
   }
 
   setEnoughColor(liquidViewConfig: any) {
@@ -67,12 +71,12 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
 
   getTime() {
     const date = new Date(this.props.info.latestWaterData?.ObservationTime ?? 0);
-    return `${date.toLocaleDateString()}, ${date.getHours()} ${date.getHours() >= 12 ? 'PM': 'AM'}`;
+    return `${date.toLocaleDateString()}, ${date.getHours()} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
   }
 
   render() {
     return (
-      <div className='Reservoir' style={{width: `${this.props.settings.iconSize}px`}}>
+      <div className='Reservoir' style={{ width: `${this.props.settings.iconSize}px` }}>
         <div className='uiFont title'>{this.props.info.ReservoirName}</div>
         <div className='title'>
           <svg id={`fillgauge${this.props.info.ReservoirIdentifier}`} width={`${this.props.settings.iconSize}px`} height={`${this.props.settings.iconSize}px`}></svg>

@@ -1,11 +1,25 @@
 import Globals from '../../Globals';
 import { Settings } from '../../models/Settings';
+import { Bookmark } from '../../models/Bookmark';
 
 // Used to store settings. They will be saved to file.
-export default function reducer(state = {
-}, action: any) {
-  var newSettings = { ...state } as any;
+export default function reducer(state = new Settings(), action: any) {
+  var newSettings = { ...state };
   switch (action.type) {
+    case "ADD_BOOKMARK":
+      newSettings.bookmarks = [...newSettings.bookmarks, action.bookmark];
+      localStorage.setItem(Globals.storeFile, JSON.stringify({ settings: newSettings }));
+      break;
+    case "DEL_BOOKMARK": {
+      let bookmarksTemp = newSettings.bookmarks;
+      const idxToDel = bookmarksTemp.findIndex((b) => { return b.ReservoirIdentifier === action.ReservoirIdentifier });
+      if (idxToDel !== -1) {
+        bookmarksTemp.splice(idxToDel, 1);
+      }
+      newSettings.bookmarks = [...bookmarksTemp];
+      localStorage.setItem(Globals.storeFile, JSON.stringify({ settings: newSettings }));
+      break;
+    }
     case "LOAD_SETTINGS":
       newSettings = JSON.parse(localStorage.getItem(Globals.storeFile)!).settings;
       break;

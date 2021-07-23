@@ -17,6 +17,18 @@
   "scope": "/twri/",
   "start_url": "/twri/",
   "display": "standalone",
+  "shortcuts": [
+    {
+      "name": "水庫書籤",
+      "url": "/twri/bookmarks",
+      "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
+    },
+    {
+      "name": "水庫資訊",
+      "url": "/twri/home",
+      "icons": [{ "src": "assets/icon/icon.png", "sizes": "512x512" }]
+    }
+  ],
   "theme_color": "black",
   "background_color": "black"
 }

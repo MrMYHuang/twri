@@ -1,3 +1,5 @@
+import { Bookmark } from "./Bookmark";
+
 export class Settings {
     version: number = 1;
     hasAppLog: boolean = true;
@@ -5,4 +7,5 @@ export class Settings {
     uiFontSize: number = 24;
     showAllReservoirs: boolean = false;
     iconSize: number = 250;
+    bookmarks: Bookmark[] = [];
 }

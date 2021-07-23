@@ -16,7 +16,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { connect, Provider } from 'react-redux';
 import queryString from 'query-string';
 import getSavedStore from './redux/store';
-import { water, settings } from 'ionicons/icons';
+import { water, settings, bookmark } from 'ionicons/icons';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -40,6 +40,7 @@ import SettingsPage from './pages/SettingsPage';
 import HomePage from './pages/HomePage';
 import Globals from './Globals';
 import ShareTextModal from './components/ShareTextModal';
+import BookmarkPage from './pages/BookmarkPage';
 
 const electronBackendApi: any = (window as any).electronBackendApi;
 
@@ -248,7 +249,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
       }
       return <Redirect to={route + query} />;
     } else if (window.location.pathname === `${Globals.pwaUrl}/`) {
-      return <Redirect to={`${Globals.pwaUrl}/home`} />;
+      return <Redirect to={`${Globals.pwaUrl}/bookmarks`} />;
     }
   }
 
@@ -258,12 +259,15 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
         <IonReactRouter>
           <IonTabs>
             <IonRouterOutlet animated={false}>
-              {/* The following route is for backward compatibility. */}
+              <Route path={`${Globals.pwaUrl}/:tab(bookmarks)`} render={(props: any) => <BookmarkPage {...props} />} exact={true} />
               <Route path={`${Globals.pwaUrl}/:tab(home)`} render={(props: any) => <HomePage {...props} />} exact={true} />
               <Route path={`${Globals.pwaUrl}/settings`} render={(props: any) => <SettingsPage {...props} />} />
               <Route path={`${Globals.pwaUrl}/`} render={() => { return this.routeByQueryString(); }} exact={true} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
+              <IonTabButton tab="bookmarks" href={`${Globals.pwaUrl}/bookmarks`}>
+                <IonIcon icon={bookmark} />
+              </IonTabButton>
               <IonTabButton tab="home" href={`${Globals.pwaUrl}/home`}>
                 <IonIcon icon={water} />
               </IonTabButton>
