@@ -68,7 +68,7 @@ class _HomePage extends React.Component<PageProps, State> {
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonTitle style={{ fontSize: 'var(--ui-font-size)' }}>水庫資訊</IonTitle>
+            <IonTitle style={{ fontSize: 'var(--ui-font-size)' }}>水庫</IonTitle>
 
             <IonButton fill="clear" slot='end' onClick={e => {
               this.setState({ showInfo: true });
