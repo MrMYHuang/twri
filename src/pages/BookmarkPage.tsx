@@ -109,7 +109,7 @@ class _BookmarkPage extends React.Component<PageProps, State> {
   getReservoirInfos() {
     const reservoirs = this.props.settings.bookmarks.map(b => this.props.tmpSettings.reservoirs.find(r => b.ReservoirIdentifier === r.ReservoirIdentifier)).filter(r => r !== undefined) as DailyOperationalStatisticsOfReservoir[];
     return reservoirs.map((info) =>
-      <ReservoirLiquidView key={`ReservoirLiquidView${info.ReservoirIdentifier}`}
+      <ReservoirLiquidView key={`BookmarkReservoirLiquidView${info.ReservoirIdentifier}`}
         {...{
           info: info,
           onIconClick: (bookmark: Bookmark) => {

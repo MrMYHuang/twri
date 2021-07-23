@@ -211,6 +211,8 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                     key: 'iconSize',
                     val: value,
                   });
+
+                  this.setState({ showToast: true, toastMessage: '請重啟 app!' });
                 }}>
                 <IonSelectOption className='uiFont' value={125}>小</IonSelectOption>
                 <IonSelectOption className='uiFont' value={250}>中</IonSelectOption>

@@ -6,6 +6,7 @@ import { DailyOperationalStatisticsOfReservoir } from '../models/DailyOperationa
 import { Settings } from '../models/Settings';
 import './ReservoirLiquidView.css';
 import { Bookmark } from '../models/Bookmark';
+import {v4} from 'uuid';
 
 interface Props {
   info: DailyOperationalStatisticsOfReservoir;
@@ -22,7 +23,7 @@ interface State {
 }
 
 class _ReservoirLiquidView extends React.Component<PageProps, State> {
-
+  id: string = 'id' + v4();
   constructor(props: any) {
     super(props);
     this.state = {
@@ -30,6 +31,10 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
   }
 
   componentDidMount() {
+    this.updateLiquidIcon();
+  }
+
+  updateLiquidIcon() {
     const EffectiveWaterStorageCapacityPercent = (this.props.info.latestWaterData?.EffectiveWaterStorageCapacity || 0) / this.props.info.EffectiveCapacity * 100;
     let liquidViewConfig = liquidFillGaugeDefaultSettings();
     if (EffectiveWaterStorageCapacityPercent >= 50) {
@@ -49,12 +54,12 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
     liquidViewConfig.waveCount = 3;
     try {
       loadLiquidFillGauge(
-        `fillgauge${this.props.info.ReservoirIdentifier}`,
+        this.id,
         EffectiveWaterStorageCapacityPercent.toFixed(1),
         liquidViewConfig
       );
     } catch (error) {
-      // Ignore.
+      console.error(error);
     }
   }
 
@@ -82,7 +87,7 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
       <div className='Reservoir' style={{ width: `${this.props.settings.iconSize}px` }}>
         <div className='uiFont title'>{this.props.info.ReservoirName}</div>
         <div className='title'>
-          <svg id={`fillgauge${this.props.info.ReservoirIdentifier}`} width={`${this.props.settings.iconSize}px`} height={`${this.props.settings.iconSize}px`}
+          <svg id={this.id} width={`${this.props.settings.iconSize}px`} height={`${this.props.settings.iconSize}px`}
             onClick={e => {
               this.props.onIconClick(new Bookmark({
                 ReservoirIdentifier: this.props.info.ReservoirIdentifier,
