@@ -40,7 +40,7 @@ async function fetchData(dispatch: Function) {
       }
 
       const originD = dataWaterReduced[d.ReservoirIdentifier] as ReservoirConditionData;
-      if (new Date(originD.ObservationTime) > new Date(d.ObservationTime)) {
+      if (new Date(originD.ObservationTime) < new Date(d.ObservationTime)) {
         dataWaterReduced[d.ReservoirIdentifier] = d;
       }
     });
