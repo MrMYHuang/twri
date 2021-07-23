@@ -1,6 +1,5 @@
 import Globals from '../../Globals';
 import { Settings } from '../../models/Settings';
-import { Bookmark } from '../../models/Bookmark';
 
 // Used to store settings. They will be saved to file.
 export default function reducer(state = new Settings(), action: any) {
@@ -38,7 +37,7 @@ export default function reducer(state = new Settings(), action: any) {
         }
       }
 
-      newSettings[key] = val;
+      (newSettings as any)[key] = val;
       localStorage.setItem(Globals.storeFile, JSON.stringify({ settings: newSettings }));
       break;
     // @ts-ignore
@@ -52,8 +51,8 @@ export default function reducer(state = new Settings(), action: any) {
       }
       const defaultSettings = new Settings();
       Object.keys(defaultSettings).forEach(key => {
-        if (newSettings[key] === undefined) {
-          newSettings[key] = (defaultSettings as any)[key];
+        if ((newSettings as any)[key] === undefined) {
+          (newSettings as any)[key] = (defaultSettings as any)[key];
         }
       });
   }

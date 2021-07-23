@@ -12,7 +12,7 @@ export class DailyOperationalStatisticsOfReservoir {
     OutflowTotal: number;
     RecordTime: string;
     RegulatoryDischarge: number;
-    ReservoirIdentifier: number;
+    ReservoirIdentifier: string;
     ReservoirName: string;
     latestWaterData: ReservoirConditionData | undefined;
 

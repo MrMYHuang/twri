@@ -109,6 +109,7 @@ class _AppOrig extends React.Component<AppOrigProps, State> {
   originalAppSettingsStr: string | null | undefined;
 
   constructor(props: any) {
+    Globals.fetchData(store.dispatch);
     super(props);
     if (!this.props.settings.hasAppLog) {
       Globals.disableAppLog();

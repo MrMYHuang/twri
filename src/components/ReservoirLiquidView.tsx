@@ -5,9 +5,12 @@ import { liquidFillGaugeDefaultSettings, loadLiquidFillGauge } from '../liquidFi
 import { DailyOperationalStatisticsOfReservoir } from '../models/DailyOperationalStatisticsOfReservoir';
 import { Settings } from '../models/Settings';
 import './ReservoirLiquidView.css';
+import { Bookmark } from '../models/Bookmark';
 
 interface Props {
   info: DailyOperationalStatisticsOfReservoir;
+  onIconClick: Function;
+  dispatch: Function;
 }
 
 interface PageProps extends Props, RouteComponentProps<{
@@ -79,7 +82,13 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
       <div className='Reservoir' style={{ width: `${this.props.settings.iconSize}px` }}>
         <div className='uiFont title'>{this.props.info.ReservoirName}</div>
         <div className='title'>
-          <svg id={`fillgauge${this.props.info.ReservoirIdentifier}`} width={`${this.props.settings.iconSize}px`} height={`${this.props.settings.iconSize}px`}></svg>
+          <svg id={`fillgauge${this.props.info.ReservoirIdentifier}`} width={`${this.props.settings.iconSize}px`} height={`${this.props.settings.iconSize}px`}
+            onClick={e => {
+              this.props.onIconClick(new Bookmark({
+                ReservoirIdentifier: this.props.info.ReservoirIdentifier,
+                ReservoirName: this.props.info.ReservoirName
+              }));
+            }}></svg>
         </div>
         <div className='uiFont'>有效蓄水量：{Math.round(this.props.info.latestWaterData?.EffectiveWaterStorageCapacity || 0)}</div>
         <div className='uiFont' hidden={!this.props.settings.showAllReservoirs}>有效容量：{Math.round(this.props.info.EffectiveCapacity || 0)}</div>

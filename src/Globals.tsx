@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { isPlatform, IonLabel } from '@ionic/react';
+import { DailyOperationalStatisticsOfReservoir } from './models/DailyOperationalStatisticsOfReservoir';
+import { ReservoirConditionData } from './models/ReservoirConditionData';
 
 const pwaUrl = process.env.PUBLIC_URL || '';
 let twrDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/twrData.json`;
@@ -9,6 +11,64 @@ const axiosInstance = axios.create({
   baseURL: twrDataUrl,
   timeout: 8000,
 });
+
+async function fetchData(dispatch: Function) {
+  dispatch({
+    type: "TMP_SET_KEY_VAL",
+    key: 'isLoading',
+    val: true,
+  });
+  try {
+    let obj: any;
+    const res = await axiosInstance.get(twrDataUrl, {
+      responseType: 'arraybuffer',
+    });
+    obj = JSON.parse(new TextDecoder().decode(res.data)) as any;
+    let data = obj.DailyOperationalStatisticsOfReservoirs_OPENDATA as DailyOperationalStatisticsOfReservoir[];
+
+    const resWater = await Globals.axiosInstance.get(Globals.twrWaterDataUrl, {
+      responseType: 'arraybuffer',
+    });
+    obj = JSON.parse(new TextDecoder().decode(resWater.data)) as any;
+    let dataWater = obj.ReservoirConditionData_OPENDATA as ReservoirConditionData[];
+
+    let dataWaterReduced: any = {};
+    dataWater.forEach((d) => {
+      if (dataWaterReduced[d.ReservoirIdentifier] == null) {
+        dataWaterReduced[d.ReservoirIdentifier] = d;
+        return;
+      }
+
+      const originD = dataWaterReduced[d.ReservoirIdentifier] as ReservoirConditionData;
+      if (new Date(originD.ObservationTime) > new Date(d.ObservationTime)) {
+        dataWaterReduced[d.ReservoirIdentifier] = d;
+      }
+    });
+
+    data.forEach((d) => {
+      if (dataWaterReduced[d.ReservoirIdentifier] != null) {
+        d.latestWaterData = dataWaterReduced[d.ReservoirIdentifier];
+      }
+    });
+
+    dispatch({
+      type: "TMP_SET_KEY_VAL",
+      key: 'reservoirs',
+      val: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: "TMP_SET_KEY_VAL",
+      key: 'fetchError',
+      val: true,
+    });
+  }
+  dispatch({
+    type: "TMP_SET_KEY_VAL",
+    key: 'isLoading',
+    val: false,
+  });
+}
 
 let log = '';
 
@@ -84,6 +144,7 @@ const Globals = {
   twrDataUrl,
   twrWaterDataUrl,
   axiosInstance,
+  fetchData,
   storeFile: 'TwriSettings.json',
   getLog,
   enableAppLog,

@@ -4,25 +4,24 @@ import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Globals from '../Globals';
 import ReservoirLiquidView from '../components/ReservoirLiquidView';
-import { DailyOperationalStatisticsOfReservoir } from '../models/DailyOperationalStatisticsOfReservoir';
-import { ReservoirConditionData } from '../models/ReservoirConditionData';
 import './Home.css';
 import { bulb, refresh, shareSocial, information } from 'ionicons/icons';
 import { Settings } from '../models/Settings';
+import { Bookmark } from '../models/Bookmark';
+import { TmpSettings } from '../models/TmpSettings';
 
 interface Props {
   dispatch: Function;
   fontSize: number;
   settings: Settings;
+  tmpSettings: TmpSettings;
 }
 
 interface State {
-  isLoading: boolean;
-  fetchError: boolean;
-  reservoirs: DailyOperationalStatisticsOfReservoir[];
   showInfo: boolean;
   showToast: boolean;
   toastMessage: string;
+  addBookmarkAlert: boolean;
 }
 
 interface PageProps extends Props, RouteComponentProps<{
@@ -38,66 +37,27 @@ class _HomePage extends React.Component<PageProps, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isLoading: true,
-      fetchError: false,
-      reservoirs: [],
       showInfo: false,
       showToast: false,
       toastMessage: '',
+      addBookmarkAlert: false,
     }
   }
 
   ionViewWillEnter() {
-    this.fetchData();
   }
 
-  async fetchData() {
-    this.setState({ isLoading: true });
-    try {
-      let obj: any;
-      const res = await Globals.axiosInstance.get(Globals.twrDataUrl, {
-        responseType: 'arraybuffer',
-      });
-      obj = JSON.parse(new TextDecoder().decode(res.data)) as any;
-      let data = obj.DailyOperationalStatisticsOfReservoirs_OPENDATA as DailyOperationalStatisticsOfReservoir[];
-
-      const resWater = await Globals.axiosInstance.get(Globals.twrWaterDataUrl, {
-        responseType: 'arraybuffer',
-      });
-      obj = JSON.parse(new TextDecoder().decode(resWater.data)) as any;
-      let dataWater = obj.ReservoirConditionData_OPENDATA as ReservoirConditionData[];
-
-      let dataWaterReduced: any = {};
-      dataWater.forEach((d) => {
-        if (dataWaterReduced[d.ReservoirIdentifier] == null) {
-          dataWaterReduced[d.ReservoirIdentifier] = d;
-          return;
-        }
-
-        const originD = dataWaterReduced[d.ReservoirIdentifier] as ReservoirConditionData;
-        if (new Date(originD.ObservationTime) > new Date(d.ObservationTime)) {
-          dataWaterReduced[d.ReservoirIdentifier] = d;
-        }
-      });
-
-      data.forEach((d) => {
-        if (dataWaterReduced[d.ReservoirIdentifier] != null) {
-          d.latestWaterData = dataWaterReduced[d.ReservoirIdentifier];
-        }
-      });
-
-      this.setState({ isLoading: false, fetchError: false, reservoirs: data });
-    } catch (error) {
-      this.setState({ isLoading: false, fetchError: true });
-    }
-  }
-
+  clickedBookmark: Bookmark | undefined;
   getReservoirInfos() {
-    const reservoirs = this.props.settings.showAllReservoirs ? this.state.reservoirs : this.state.reservoirs.filter(v => v.EffectiveCapacity > 1000);
+    const reservoirs = this.props.settings.showAllReservoirs ? this.props.tmpSettings.reservoirs : this.props.tmpSettings.reservoirs.filter(v => v.EffectiveCapacity > 1000);
     return reservoirs.map((info) =>
       <ReservoirLiquidView key={`ReservoirLiquidView${info.ReservoirIdentifier}`}
         {...{
           info: info,
+          onIconClick: (bookmark: Bookmark) => {
+            this.clickedBookmark = bookmark;
+            this.setState({ addBookmarkAlert: true });
+          },
           ...this.props
         }} />
     );
@@ -127,7 +87,7 @@ class _HomePage extends React.Component<PageProps, State> {
             </IonButton>
 
             <IonButton fill="clear" slot='end' onClick={e => {
-              this.fetchData();
+              Globals.fetchData(this.props.dispatch);
             }}>
               <IonIcon icon={refresh} slot='icon-only' />
             </IonButton>
@@ -148,14 +108,14 @@ class _HomePage extends React.Component<PageProps, State> {
         </IonHeader>
         <IonContent>
 
-          {this.state.isLoading ?
+          {this.props.tmpSettings.isLoading ?
             <IonLoading
               cssClass='uiFont'
-              isOpen={this.state.isLoading}
+              isOpen={this.props.tmpSettings.isLoading}
               message={'載入中...'}
             />
             :
-            this.state.fetchError ?
+            this.props.tmpSettings.fetchError ?
               Globals.fetchErrorContent
               :
               <div className='ReservoirList'>
@@ -183,6 +143,35 @@ class _HomePage extends React.Component<PageProps, State> {
             ]}
           />
 
+          <IonAlert
+            cssClass='uiFont'
+            isOpen={this.state.addBookmarkAlert}
+            backdropDismiss={false}
+            header={'確定新增至書籤？'}
+            buttons={[
+              {
+                text: '取消',
+                cssClass: 'primary uiFont',
+                handler: (value) => {
+                  this.setState({
+                    addBookmarkAlert: false,
+                  });
+                },
+              },
+              {
+                text: '確定',
+                cssClass: 'secondary uiFont',
+                handler: (value) => {
+                  this.props.dispatch({
+                    type: "ADD_BOOKMARK",
+                    bookmark: this.clickedBookmark,
+                  });
+                  this.setState({ addBookmarkAlert: false, showToast: true, toastMessage: '新增書籤成功！' });
+                },
+              }
+            ]}
+          />
+
           <IonToast
             cssClass='uiFont'
             isOpen={this.state.showToast}
@@ -198,6 +187,7 @@ class _HomePage extends React.Component<PageProps, State> {
 
 const mapStateToProps = (state: any /*, ownProps*/) => {
   return {
+    tmpSettings: state.tmpSettings,
     settings: state.settings
   }
 };

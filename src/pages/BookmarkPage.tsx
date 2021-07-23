@@ -1,16 +1,21 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonReorderGroup, IonReorder, IonItem, IonLabel, withIonLifeCycle, IonItemSliding, IonItemOptions, IonItemOption, IonIcon, IonButton, IonToast } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonReorderGroup, IonReorder, IonItem, IonLabel, withIonLifeCycle, IonItemSliding, IonItemOptions, IonItemOption, IonIcon, IonButton, IonToast, IonLoading } from '@ionic/react';
 import { ItemReorderEventDetail } from '@ionic/core';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Bookmark } from '../models/Bookmark';
-import { swapVertical } from 'ionicons/icons';
-import queryString from 'query-string';
+import { refresh, swapVertical } from 'ionicons/icons';
 import Globals from '../Globals';
+import { Settings } from '../models/Settings';
+import ReservoirLiquidView from '../components/ReservoirLiquidView';
+import { TmpSettings } from '../models/TmpSettings';
+import { DailyOperationalStatisticsOfReservoir } from '../models/DailyOperationalStatisticsOfReservoir';
 
 interface Props {
   dispatch: Function;
   bookmarks: [Bookmark];
+  tmpSettings: TmpSettings;
+  settings: Settings;
   fontSize: number;
 }
 
@@ -45,7 +50,7 @@ class _BookmarkPage extends React.Component<PageProps, State> {
   ionViewWillEnter() {
     if (!this.hasBookmark) {
       this.setState({ showToast: true, toastMessage: '無書籤！請搜尋藥品並加至書籤。' });
-      this.props.history.push(`${Globals.pwaUrl}/dictionary/search`);
+      this.props.history.push(`${Globals.pwaUrl}/home`);
     }
     //console.log( 'view will enter' );
   }
@@ -57,12 +62,12 @@ class _BookmarkPage extends React.Component<PageProps, State> {
   delBookmarkHandler(uuidStr: string) {
     this.props.dispatch({
       type: "DEL_BOOKMARK",
-      uuid: uuidStr,
+      ReservoirIdentifier: uuidStr,
     });
 
     if (!this.hasBookmark) {
       this.setState({ showToast: true, toastMessage: '無書籤！請搜尋藥品並加至書籤。' });
-      this.props.history.push(`${Globals.pwaUrl}/dictionary/search`);
+      this.props.history.push(`${Globals.pwaUrl}/home`);
     }
   }
 
@@ -78,22 +83,10 @@ class _BookmarkPage extends React.Component<PageProps, State> {
     let bookmarks = this.props.bookmarks;
     let rows = Array<object>();
     bookmarks.forEach((bookmark, i) => {
-      let routeLink = ``;
-      let label = `${bookmark.中文品名}`;
-      routeLink = `${Globals.pwaUrl}/dictionary/${bookmark.isChineseHerb ? 'chineseHerb' : 'drug'}/${bookmark.uuid}`;
+      let label = `${bookmark.ReservoirName}`;
       rows.push(
         <IonItemSliding key={`bookmarkItemSliding_` + i}>
-          <IonItem key={`bookmarkItem_` + i} button={true} onClick={async event => {
-            if (this.state.reorder) {
-              this.setState({ showToast: true, toastMessage: '請先關閉排列功能，才可點擊書籤！' });
-              return;
-            }
-
-            event.preventDefault();
-            this.props.history.push({
-              pathname: routeLink,
-            });
-          }}>
+          <IonItem key={`bookmarkItem_` + i} button={true}>
             <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
             <IonLabel className='ion-text-wrap uiFont' key={`bookmarkItemLabel_` + i}>
               {label}
@@ -103,7 +96,7 @@ class _BookmarkPage extends React.Component<PageProps, State> {
 
           <IonItemOptions side="end">
             <IonItemOption style={{ fontSize: 'var(--ui-font-size)' }} color='danger' onClick={(e) => {
-              this.delBookmarkHandler(bookmark.uuid);
+              this.delBookmarkHandler(bookmark.ReservoirIdentifier);
               this.bookmarkListRef.current?.closeSlidingItems();
             }}>刪除</IonItemOption>
           </IonItemOptions>
@@ -111,6 +104,20 @@ class _BookmarkPage extends React.Component<PageProps, State> {
       );
     });
     return rows;
+  }
+
+  getReservoirInfos() {
+    const reservoirs = this.props.settings.bookmarks.map(b => this.props.tmpSettings.reservoirs.find(r => b.ReservoirIdentifier === r.ReservoirIdentifier)).filter(r => r !== undefined) as DailyOperationalStatisticsOfReservoir[];
+    return reservoirs.map((info) =>
+      <ReservoirLiquidView key={`ReservoirLiquidView${info.ReservoirIdentifier}`}
+        {...{
+          info: info,
+          onIconClick: (bookmark: Bookmark) => {
+            // Do nothing.
+          },
+          ...this.props
+        }} />
+    );
   }
 
   render() {
@@ -122,6 +129,12 @@ class _BookmarkPage extends React.Component<PageProps, State> {
           <IonToolbar>
             <IonTitle style={{ fontSize: 'var(--ui-font-size)' }}>書籤</IonTitle>
 
+            <IonButton fill="clear" slot='end' onClick={e => {
+              Globals.fetchData(this.props.dispatch);
+            }}>
+              <IonIcon icon={refresh} slot='icon-only' />
+            </IonButton>
+            
             <IonButton fill={this.state.reorder ? 'solid' : 'clear'} slot='end'
               onClick={ev => this.setState({ reorder: !this.state.reorder })}>
               <IonIcon icon={swapVertical} slot='icon-only' />
@@ -129,21 +142,38 @@ class _BookmarkPage extends React.Component<PageProps, State> {
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          {this.hasBookmark ?
-            <>
-              <IonList key='bookmarkList0' ref={this.bookmarkListRef}>
-                <IonReorderGroup disabled={!this.state.reorder} onIonItemReorder={(event: CustomEvent<ItemReorderEventDetail>) => { this.reorderBookmarks(event); }}>
-                  {rows}
-                </IonReorderGroup>
-              </IonList>
-              {helpDoc}
-            </> :
-            <>
-              <IonList key='bookmarkList1'>
-                {rows}
-              </IonList>
-              {helpDoc}
-            </>
+          {
+            this.props.tmpSettings.isLoading ?
+              <IonLoading
+                cssClass='uiFont'
+                isOpen={this.props.tmpSettings.isLoading}
+                message={'載入中...'}
+              />
+              :
+              this.props.tmpSettings.fetchError ?
+                Globals.fetchErrorContent
+                :
+                this.hasBookmark ?
+                  this.state.reorder ?
+                    <>
+                      <IonList key='bookmarkList0' ref={this.bookmarkListRef}>
+                        <IonReorderGroup disabled={!this.state.reorder} onIonItemReorder={(event: CustomEvent<ItemReorderEventDetail>) => { this.reorderBookmarks(event); }}>
+                          {rows}
+                        </IonReorderGroup>
+                      </IonList>
+                      {helpDoc}
+                    </>
+                    :
+                    <div className='ReservoirList'>
+                      {this.getReservoirInfos()}
+                    </div>
+                  :
+                  <>
+                    <IonList key='bookmarkList1'>
+                      {rows}
+                    </IonList>
+                    {helpDoc}
+                  </>
           }
 
           <IonToast
@@ -162,6 +192,8 @@ class _BookmarkPage extends React.Component<PageProps, State> {
 const mapStateToProps = (state: any /*, ownProps*/) => {
   return {
     bookmarks: state.settings.bookmarks,
+    settings: state.settings,
+    tmpSettings: state.tmpSettings,
   }
 };
 
