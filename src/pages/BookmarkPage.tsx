@@ -127,7 +127,7 @@ class _BookmarkPage extends React.Component<PageProps, State> {
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonTitle style={{ fontSize: 'var(--ui-font-size)' }}>書籤</IonTitle>
+            <IonTitle className='uiFont'>書籤</IonTitle>
 
             <IonButton fill="clear" slot='end' onClick={e => {
               Globals.fetchData(this.props.dispatch);
