@@ -278,7 +278,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                 <div><a href='/' onClick={e => {
                   e.preventDefault();
                   this.setState({ showLicense: true });
-                }}>第三方版權聲明</a></div>
+                }}>第三方版權聲明 (國家發展委員會信箱：opendata@ndc.gov.tw)</a></div>
                 <div>作者: Meng-Yuan Huang</div>
                 <div><a href="mailto:myh@live.com" target="_new">myh@live.com</a></div>
               </div>
@@ -286,8 +286,9 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
           </IonList>
           <IonAlert
               isOpen={this.state.showLicense}
+              cssClass='uiFontX0_8'
               backdropDismiss={false}
-              message="此 app 使用《水庫每日營運狀況》( https://data.gov.tw/dataset/41568 )、《水庫水情資料》( https://data.gov.tw/dataset/45501 )。此開放資料依政府資料開放授權條款 (Open Government Data License) 進行公眾釋出，使用者於遵守本條款各項規定之前提下，得利用之。政府資料開放授權條款：https://data.gov.tw/license"
+              message="此 app 使用《水庫每日營運狀況》(https://data.gov.tw/dataset/41568)、《水庫水情資料》(https://data.gov.tw/dataset/45501)。此開放資料依政府資料開放授權條款 (Open Government Data License) 進行公眾釋出，使用者於遵守本條款各項規定之前提下，得利用之。政府資料開放授權條款：https://data.gov.tw/license"
               buttons={[
                 {
                   text: '關閉',

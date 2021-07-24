@@ -90,6 +90,10 @@ https://myhpwa.github.io/twri
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* 1.3.3:
+  * 設定頁加上資料來源的國家發展委員會信箱，以符合 Google Play Store 上架規範。
+* 1.3.2:
+  * 設定頁加上資料來源版權聲明，以符合 Google Play Store 上架規範。
 * 1.3.1:
   * 修正水庫資訊非水利署最新值的問題。
 * 1.3.0:
