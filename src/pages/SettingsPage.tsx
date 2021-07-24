@@ -9,11 +9,11 @@ import PackageInfos from '../../package.json';
 import { Settings } from '../models/Settings';
 
 interface StateProps {
-  showFontLicense: boolean;
   twdDataDownloadRatio: number;
   showClearAlert: boolean;
   showToast: boolean;
   toastMessage: string;
+  showLicense: boolean;
 }
 
 interface Props {
@@ -39,7 +39,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
     super(props);
 
     this.state = {
-      showFontLicense: false,
+      showLicense: false,
       twdDataDownloadRatio: 0,
       showClearAlert: false,
       showToast: false,
@@ -275,11 +275,41 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                 <div>關於</div>
                 <div><a href="https://github.com/MrMYHuang/twri#web-app" target="_new">程式安裝說明</a></div>
                 <div><a href="https://github.com/MrMYHuang/twri" target="_new">操作說明與開放原始碼</a></div>
+                <div><a href='/' onClick={e => {
+                  e.preventDefault();
+                  this.setState({ showLicense: true });
+                }}>第三方版權聲明</a></div>
                 <div>作者: Meng-Yuan Huang</div>
                 <div><a href="mailto:myh@live.com" target="_new">myh@live.com</a></div>
               </div>
             </IonItem>
           </IonList>
+          <IonAlert
+              isOpen={this.state.showLicense}
+              backdropDismiss={false}
+              message="此 app 使用《水庫每日營運狀況》( https://data.gov.tw/dataset/41568 )、《水庫水情資料》( https://data.gov.tw/dataset/45501 )。此開放資料依政府資料開放授權條款 (Open Government Data License) 進行公眾釋出，使用者於遵守本條款各項規定之前提下，得利用之。政府資料開放授權條款：https://data.gov.tw/license"
+              buttons={[
+                {
+                  text: '關閉',
+                  cssClass: 'primary uiFont',
+                  handler: (value) => {
+                    this.setState({
+                      showLicense: false,
+                    });
+                  },
+                },
+                {
+                  text: '開啟授權',
+                  cssClass: 'secondary uiFont',
+                  handler: (value) => {
+                    this.setState({
+                      showLicense: false,
+                    });
+                    window.open('https://data.gov.tw/license');
+                  },
+                }
+              ]}
+            />
 
           <IonToast
             cssClass='uiFont'
