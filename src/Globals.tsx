@@ -2,6 +2,7 @@ import axios from 'axios';
 import { isPlatform, IonLabel } from '@ionic/react';
 import { DailyOperationalStatisticsOfReservoir } from './models/DailyOperationalStatisticsOfReservoir';
 import { ReservoirConditionData } from './models/ReservoirConditionData';
+import { Settings } from './models/Settings';
 
 const pwaUrl = process.env.PUBLIC_URL || '';
 let twrDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/twrData.json`;
@@ -149,6 +150,7 @@ const Globals = {
     'iconSize': '圖示大小',
     'theme': '佈景主題',
     'uiFontSize': 'UI字型大小',
+    'textFontSize': '內容文字大小',
   } as Record<string, string>,
   fetchErrorContent: (
     <div className='contentCenter'>
@@ -170,8 +172,8 @@ const Globals = {
       });
     });
   },
-  updateCssVars: (settings: any) => {
-    document.documentElement.style.cssText = `--ui-font-size: ${settings.uiFontSize}px;`
+  updateCssVars: (settings: Settings) => {
+    document.documentElement.style.cssText = `--text-font-size: ${settings.textFontSize}px; --ui-font-size: ${settings.uiFontSize}px;`
   },
   isMacCatalyst,
   isTouchDevice: () => {

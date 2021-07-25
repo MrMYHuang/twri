@@ -3,7 +3,10 @@
  * Copyright (c) 2015, Curtis Bratton
  * All rights reserved.
  *
- * Liquid Fill Gauge v1.1
+ * Liquid Fill Gauge version history:
+ *  v1.3: loadLiquidFillGauge supports to reload by clearing the old drawing by myh@live.com.
+ *  v1.2: Rewrite for D3 v7 by myh@live.com.
+ *  v1.1: Initial released by Curtis Bratton.
  */
 
 import * as d3 from 'd3';
@@ -37,6 +40,8 @@ export function loadLiquidFillGauge(elementId, value, config) {
     if(config == null) config = liquidFillGaugeDefaultSettings();
 
     var gauge = d3.select("#" + elementId);
+    // Clear the old drawing.
+    gauge.selectChildren().remove();
     var radius = Math.min(parseInt(gauge.style("width")), parseInt(gauge.style("height")))/2;
     var locationX = parseInt(gauge.style("width"))/2 - radius;
     var locationY = parseInt(gauge.style("height"))/2 - radius;

@@ -211,8 +211,6 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                     key: 'iconSize',
                     val: value,
                   });
-
-                  this.setState({ showToast: true, toastMessage: '請重啟 app!' });
                 }}>
                 <IonSelectOption className='uiFont' value={125}>小</IonSelectOption>
                 <IonSelectOption className='uiFont' value={250}>中</IonSelectOption>
@@ -266,6 +264,21 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                     Globals.updateCssVars(this.props.settings);
                   }} />
                 </div>
+              </div>
+            </IonItem>
+            <IonItem>
+              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
+              <IonIcon icon={text} slot='start' />
+              <div className="contentBlock">
+                <IonLabel className='ion-text-wrap uiFont'>{Globals.appSettings['textFontSize']}: <span className='textFont'>{this.props.settings.textFontSize}</span></IonLabel>
+                <IonRange min={12} max={32} pin={true} snaps={true} value={this.props.settings.textFontSize} onIonChange={e => {
+                  this.props.dispatch({
+                    type: "SET_KEY_VAL",
+                    key: 'textFontSize',
+                    val: e.detail.value,
+                  });
+                  Globals.updateCssVars(this.props.settings);
+                }} />
               </div>
             </IonItem>
             <IonItem>

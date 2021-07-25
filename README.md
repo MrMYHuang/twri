@@ -90,6 +90,9 @@ https://myhpwa.github.io/twri
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* 1.4.0:
+  * 設定頁新增"內容文字大小"設定。
+  * 調整圖示大小不再須要重啟 app。
 * 1.3.4:
   * 縮小 UI 字型設定准許範圍，避免排版過於擁擠，以符合 Apple App Store 上架規範。
 * 1.3.3:
