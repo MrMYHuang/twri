@@ -134,7 +134,7 @@ class _BookmarkPage extends React.Component<PageProps, State> {
             }}>
               <IonIcon icon={refresh} slot='icon-only' />
             </IonButton>
-            
+
             <IonButton fill={this.state.reorder ? 'solid' : 'clear'} slot='end'
               onClick={ev => this.setState({ reorder: !this.state.reorder })}>
               <IonIcon icon={swapVertical} slot='icon-only' />
@@ -164,9 +164,12 @@ class _BookmarkPage extends React.Component<PageProps, State> {
                       {helpDoc}
                     </>
                     :
-                    <div className='ReservoirList'>
-                      {this.getReservoirInfos()}
-                    </div>
+                    <>
+                      <div className='ReservoirList'>
+                        {this.getReservoirInfos()}
+                      </div>
+                      {helpDoc}
+                    </>
                   :
                   <>
                     <IonList key='bookmarkList1'>

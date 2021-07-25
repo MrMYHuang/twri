@@ -57,11 +57,11 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
     liquidViewConfig.textSize = 0.75;
     liquidViewConfig.waveCount = 3;
     try {
-        loadLiquidFillGauge(
-          this.id,
-          EffectiveWaterStorageCapacityPercent.toFixed(1),
-          liquidViewConfig
-        );
+      loadLiquidFillGauge(
+        this.id,
+        EffectiveWaterStorageCapacityPercent.toFixed(1),
+        liquidViewConfig
+      );
     } catch (error) {
       console.error(error);
     }
@@ -88,7 +88,7 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
 
   render() {
     return (
-      <div className='Reservoir' style={{ width: `${this.props.settings.iconSize}px` }}>
+      <div className='Reservoir'>
         <div className='textFont title'>{this.props.info.ReservoirName}</div>
         <div className='title'>
           <svg id={this.id} width={`${this.props.settings.iconSize}px`} height={`${this.props.settings.iconSize}px`}
@@ -99,9 +99,11 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
               }));
             }}></svg>
         </div>
-        <div className='textFontX0_8'>有效蓄水量：{Math.round(this.props.info.latestWaterData?.EffectiveWaterStorageCapacity || 0)}</div>
-        <div className='textFontX0_8' hidden={!this.props.settings.showAllReservoirs}>有效容量：{Math.round(this.props.info.EffectiveCapacity || 0)}</div>
-        <div className='textFontX0_8'>觀測時間：{this.getTime()}</div>
+        <div style={{ width: `${this.props.settings.iconSize}px` }}>
+          <div className='textFontX0_8'>有效蓄水量：{Math.round(this.props.info.latestWaterData?.EffectiveWaterStorageCapacity || 0)}</div>
+          <div className='textFontX0_8' hidden={!this.props.settings.showAllReservoirs}>有效容量：{Math.round(this.props.info.EffectiveCapacity || 0)}</div>
+          <div className='textFontX0_8'>觀測時間：{this.getTime()}</div>
+        </div>
       </div>
     );
   }
