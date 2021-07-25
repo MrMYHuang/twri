@@ -257,7 +257,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
               <div className="contentBlock">
                 <div style={{ flexDirection: "column" }}>
                   <IonLabel className='ion-text-wrap uiFont'>{Globals.appSettings['uiFontSize']}: {this.props.uiFontSize}</IonLabel>
-                  <IonRange min={10} max={128} pin={true} snaps={true} value={this.props.uiFontSize} onIonChange={e => {
+                  <IonRange min={12} max={32} pin={true} snaps={true} value={this.props.uiFontSize} onIonChange={e => {
                     this.props.dispatch({
                       type: "SET_KEY_VAL",
                       key: 'uiFontSize',
