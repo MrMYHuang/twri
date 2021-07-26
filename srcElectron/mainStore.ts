@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-import { app, BrowserWindow, ipcMain, Menu, MenuItem, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, MenuItem, shell, dialog } from 'electron';
 const windowStateKeeper = require('electron-window-state');
 const path = require('path');
 const PackageInfos = require('../package.json');
@@ -76,7 +76,7 @@ const template = [
 const menu = Menu.buildFromTemplate(template)
 Menu.setApplicationMenu(menu)
 
-function createWindow() {
+async function createWindow() {
 
   let mainWindowState = windowStateKeeper({
     defaultWidth: 1280,
@@ -110,17 +110,40 @@ function createWindow() {
 
   // and load the index.html of the app.
   //mainWindow.loadFile('index.html');
-  if (isDevMode()) {
-    mainWindow.loadURL('http://localhost:3000');
-  } else {
-    mainWindow.loadURL('https://myhpwa.github.io/twri');
+  let loadUrlSuccess = false;
+  while (!loadUrlSuccess) {
+    try {
+      await new Promise<void>(async (ok, fail) => {
+        mainWindow?.webContents.once('did-finish-load', (res: any) => {
+          loadUrlSuccess = true;
+          ok();
+        });
+        mainWindow?.webContents.once('did-fail-load', () => {
+          fail();
+        });
+
+        if (isDevMode()) {
+          await mainWindow!.loadURL('http://localhost:3000');
+        } else {
+          await mainWindow!.loadURL('https://myhpwa.github.io/twri', {
+
+          });
+        }
+      });
+    } catch (error) {
+      console.error(error);
+      dialog.showMessageBoxSync(mainWindow!, {
+        message: '網路連線異常，請重試！',
+        buttons: ['重試'],
+      })
+    }
   }
 
   // Open web link by external browser.
-  mainWindow?.webContents.on('new-window', function(event, url) {
+  mainWindow?.webContents.on('new-window', function (event, url) {
     event.preventDefault();
     shell.openExternal(url);
- });
+  });
 }
 
 // This method will be called when Electron has finished
