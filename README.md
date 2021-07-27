@@ -114,10 +114,6 @@ https://myhpwa.github.io/twri
 * 1.0.0:
   * 第1版。
 
-## <a id='privacyPolicy'>隱私政策聲明</a>
-
-此app無收集使用者個人資訊，也無收集匿名資訊。
-
 ## 第三方軟體版權聲明
 
 1. 水庫每日營運狀況 ( https://data.gov.tw/dataset/41568 )
