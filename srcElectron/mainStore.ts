@@ -113,29 +113,37 @@ async function createWindow() {
   let loadUrlSuccess = false;
   while (!loadUrlSuccess) {
     try {
-      await new Promise<void>(async (ok, fail) => {
+      await new Promise<any>(async (ok, fail) => {
         mainWindow?.webContents.once('did-finish-load', (res: any) => {
           loadUrlSuccess = true;
-          ok();
+          mainWindow?.webContents.removeAllListeners();
+          ok('');
         });
-        mainWindow?.webContents.once('did-fail-load', () => {
-          fail();
+        mainWindow?.webContents.once('did-fail-load', (event, errorCode, errorDescription) => {
+          fail(`Error ${errorCode}: ${errorDescription}`);
         });
 
-        if (isDevMode()) {
-          await mainWindow!.loadURL('http://localhost:3000');
-        } else {
-          await mainWindow!.loadURL('https://myhpwa.github.io/twri', {
-
-          });
+        try {
+          if (isDevMode()) {
+            await mainWindow!.loadURL('http://localhost:3000');
+          } else {
+            await mainWindow!.loadURL('https://myhpwa.github.io/twri');
+          }
+        } catch (error) {
+          fail(error);
         }
       });
     } catch (error) {
+      mainWindow?.webContents.removeAllListeners();
       console.error(error);
-      dialog.showMessageBoxSync(mainWindow!, {
-        message: '網路連線異常，請重試！',
-        buttons: ['重試'],
+      const buttonId = dialog.showMessageBoxSync(mainWindow!, {
+        message: `網路連線異常，請重試！\n${error}`,
+        buttons: ['重試', '取消'],
       })
+
+      if (buttonId === 1) {
+        loadUrlSuccess = true;
+      }
     }
   }
 
