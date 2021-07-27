@@ -85,7 +85,6 @@ https://myhpwa.github.io/twri
 
 <img src='https://github.com/MrMYHuang/twri/raw/main/docs/images/Safari/AppIcon.png' width='50%' />
 
-
 ## <a id='knownIssues'>已知問題</a>
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
@@ -113,6 +112,8 @@ https://myhpwa.github.io/twri
   * 修正佈景主題切換後，所選項目文字沒出現的問題。
 * 1.0.0:
   * 第1版。
+
+## <a href='https://github.com/MrMYHuang/twri/blob/main/PrivacyPolicy.md'>隱私政策</a>
 
 ## 第三方軟體版權聲明
 
