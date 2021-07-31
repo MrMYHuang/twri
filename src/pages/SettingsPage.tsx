@@ -9,7 +9,6 @@ import PackageInfos from '../../package.json';
 import { Settings } from '../models/Settings';
 
 interface StateProps {
-  twdDataDownloadRatio: number;
   showClearAlert: boolean;
   showToast: boolean;
   toastMessage: string;
@@ -40,7 +39,6 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
 
     this.state = {
       showLicense: false,
-      twdDataDownloadRatio: 0,
       showClearAlert: false,
       showToast: false,
       toastMessage: '',
