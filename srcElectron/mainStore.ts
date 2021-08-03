@@ -125,7 +125,7 @@ async function createWindow() {
 
         try {
           if (isDevMode()) {
-            await mainWindow!.loadURL('http://localhost:3000');
+            await mainWindow!.loadURL('http://localhost:3000/twri');
           } else {
             await mainWindow!.loadURL('https://myhpwa.github.io/twri');
           }
