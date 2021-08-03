@@ -9,7 +9,6 @@ import PackageInfos from '../../package.json';
 import { Settings } from '../models/Settings';
 
 interface StateProps {
-  twdDataDownloadRatio: number;
   showClearAlert: boolean;
   showToast: boolean;
   toastMessage: string;
@@ -40,7 +39,6 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
 
     this.state = {
       showLicense: false,
-      twdDataDownloadRatio: 0,
       showClearAlert: false,
       showToast: false,
       toastMessage: '',
@@ -123,10 +121,10 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                   <IonLabel className='ion-text-wrap uiFont'>App設定</IonLabel>
                   <div style={{ textAlign: 'right' }}>
                     <IonButton fill='outline' shape='round' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={async (e) => {
-                      const settingsJsonUri = `data:text/json;charset=utf-8,${encodeURIComponent(localStorage.getItem('Settings.json') || '')}`;
+                      const settingsJsonUri = `data:text/json;charset=utf-8,${encodeURIComponent(localStorage.getItem(Globals.storeFile) || '')}`;
                       const a = document.createElement('a');
                       a.href = settingsJsonUri;
-                      a.download = 'Settings.json';
+                      a.download = Globals.storeFile;
                       a.click();
                       a.remove();
                     }}>匯出</IonButton>
@@ -136,7 +134,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                       try {
                         // JSON text validation.
                         JSON.parse(fileText);
-                        localStorage.setItem('Settings.json', fileText);
+                        localStorage.setItem(Globals.storeFile, fileText);
                         this.props.dispatch({ type: 'LOAD_SETTINGS' });
                       } catch (e) {
                         console.error(e);

@@ -109,7 +109,7 @@ extension WebViewController: WKNavigationDelegate {
             if let url = navigationAction.request.url {
                 if url.absoluteString.contains(jsonUriPrefix) {
                     if let dataStr = url.absoluteString.replacingOccurrences(of: jsonUriPrefix, with: "").removingPercentEncoding {
-                        saveText(text: dataStr, file: "Settings.json")
+                        saveText(text: dataStr, file: "TwriSettings.json")
                         decisionHandler(.cancel)
                         return
                     }
