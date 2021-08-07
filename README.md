@@ -109,6 +109,8 @@ https://myhpwa.github.io/twri
 1. iOS Safari 13.4以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* 1.4.6:
+  * 修正資料不即時的問題。
 * 1.4.5:
   * 移除 store apps 不必要的 app 安裝連結。
   * 移除設定頁 app 更新通知功能，以符合 Mac App Store 上架規範。

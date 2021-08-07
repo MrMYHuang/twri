@@ -27,7 +27,7 @@ async function fetchData(dispatch: Function) {
     obj = JSON.parse(new TextDecoder().decode(res.data)) as any;
     let data = obj.DailyOperationalStatisticsOfReservoirs_OPENDATA as DailyOperationalStatisticsOfReservoir[];
 
-    const resWater = await Globals.axiosInstance.get(Globals.twrWaterDataUrl, {
+    const resWater = await Globals.axiosInstance.get(Globals.twrWaterDataUrl + `?timeStamp=${new Date().getTime()}`, {
       responseType: 'arraybuffer',
     });
     obj = JSON.parse(new TextDecoder().decode(resWater.data)) as any;
