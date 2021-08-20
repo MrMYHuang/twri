@@ -1,4 +1,4 @@
-# 台灣水庫資訊(Taiwan Reservoir Info)
+# 台灣水庫資訊 (Taiwan Reservoir Info)
 
 ## <a id='feature'>特色</a>
 
@@ -13,7 +13,7 @@
   2. 刪除：至書籤頁，按右上角切換順序鈕，會出現書籤列表。左滑項目即出現刪除鈕，再點擊即可。
 
 * <a id='shareAppLink'>網址分享</a>
-  1. 用瀏覽器開啟此 app 的水庫頁面，點擊右上角分享鈕，可複製此頁連結至作業系統剪貼簿或產生QR code，可分享給其他人。
+  1. 用瀏覽器開啟此 app 的水庫頁面，點擊右上角分享鈕，可複製此頁連結至作業系統剪貼簿或產生 QR code，可分享給其他人。
   2. 分享網址可帶上部分 app 設定參數。
 
 * 佈景主題切換
@@ -22,9 +22,9 @@
 
 * <a id='report'>App異常回報</a>
 
-  App設定頁的異常回報鈕使用方法為：執行會造成app異常的步驟後，再至設定頁按下異常回報鈕，即會自動產生一封E-mail，包含異常的記錄，發送此E-mail給我們即可。
+  App設定頁的異常回報鈕使用方法為：執行會造成app異常的步驟後，再至設定頁按下異常回報鈕，即會自動產生一封 E-mail，包含異常的記錄，發送此 E-mail 給我們即可。
 
-程式碼為開放(MIT License)，可自由下載修改、重新發佈。
+程式碼為開放 (MIT License)，可自由下載修改、重新發佈。
 
 ## 支援平台
 已在這些環境作過安裝、測試:
@@ -37,17 +37,17 @@
 
 非上述環境仍可嘗試使用此app。若有<a href='#knownIssues'>已知問題</a>未描述的問題，可用<a href='#report'>異常回報</a>功能。
 
-建議OS與Chrome、Safari保持在最新版，以取得最佳app體驗。
+建議 OS 與 Chrome, Safari 保持在最新版，以取得最佳app體驗。
 
 ## <a id='install'>安裝</a>
 
-此app目前有2種取得、安裝方式：
+此 app 目前有2種取得、安裝方式：
 
   1. Chrome, Safari 網頁瀏覽器。
   2. App 商店
 
 ### <a id='web-app'>從瀏覽器開啟/安裝</a>
-請用Chrome (Windows, macOS, Linux, Android作業系統使用者)、Safari (iOS (iPhone, iPad)使用者)瀏覽器開啟以下網址：
+請用 Chrome (Windows, macOS, Linux, Android 作業系統使用者), Safari iOS (iPhone, iPad 使用者)瀏覽器開啟以下網址：
 
 https://myhpwa.github.io/twri
 
@@ -57,41 +57,41 @@ https://myhpwa.github.io/twri
 <img width="auto" height='60px' src='https://user-images.githubusercontent.com/9122190/28998409-c5bf7362-7a00-11e7-9b63-db56694522e7.png'/>
 </a>
 
-此progressive web app (PWA)，可不安裝直接在網頁瀏覽器執行，或安裝至手機、平板、筆電、桌機。建議安裝，以避免瀏覽器定期清除快取，導致書籤資料不見！
+此 progressive web app (PWA)，可不安裝直接在網頁瀏覽器執行，或安裝至手機、平板、筆電、桌機。建議安裝，以避免瀏覽器定期清除快取，導致書籤資料不見！
 
-#### Windows, macOS, Linux, Android - 使用Chrome安裝
+#### Windows, macOS, Linux, Android - 使用 Chrome 安裝
 使用Chrome瀏覧器（建議最新版）開啟上述PWA網址後，網址列會出現一個加號，如圖所示：
 
 <img src='https://github.com/MrMYHuang/twri/raw/main/docs/images/ChromeInstall.png' width='50%' />
 
-點擊它，以完成安裝。安裝完後會在桌面出現"台灣水庫"app圖示。
+點擊它，以完成安裝。安裝完後會在桌面出現"台灣水庫" app 圖示。
 
-#### iOS - 使用Safari安裝
-1. 使用Safari開啟web app網址，再點擊下方中間的"分享"圖示：
+#### iOS - 使用 Safari 安裝
+1. 使用 Safari 開啟 web app 網址，再點擊下方中間的"分享"圖示：
 
 <img src='https://github.com/MrMYHuang/twri/raw/main/docs/images/Safari/OpenAppUrl.png' width='50%' />
 
-2. 滑動頁面至下方，點選"加入主畫面"(Add to Home Screen)：
+2. 滑動頁面至下方，點選"加入主畫面" (Add to Home Screen)：
 
 <img src='https://github.com/MrMYHuang/twri/raw/main/docs/images/Safari/AddToHomeScreen.png' width='50%' />
 
-3. App安裝完，出現在主畫面的圖示：
+3. App 安裝完，出現在主畫面的圖示：
 
 <img src='https://github.com/MrMYHuang/twri/raw/main/docs/images/Safari/AppIcon.png' width='50%' />
 
-### <a id='storeApp'>從App商店安裝</a>
+### <a id='storeApp'>從 App 商店安裝</a>
 #### Android - 使用 Google Play Store
 <a href='https://play.google.com/store/apps/details?id=io.github.myhpwa.twri' target='_blank'>
 <img width="auto" height='60px' alt='Google Play立即下載' src='https://github.com/MrMYHuang/twri/raw/main/docs/images/zh-tw_badge_web_generic.png'/>
 </a>
 
 #### iOS 14.0+ (iPhone), iPadOS 14.0+ (iPad) - 使用 Apple App Store
-<a href='https://apps.apple.com/us/app/id1577455211' target='_blank'>
+<a href='https://apps.apple.com/app/id1577455211' target='_blank'>
 <img width="auto" height='60px' src='https://github.com/MrMYHuang/twri/raw/main/docs/images/Download_on_the_App_Store_Badge_CNTC_RGB_blk_100217.svg'/>
 </a>
 
 #### macOS 10.10+ - 使用 Apple App Store
-<a href='https://apps.apple.com/us/app/id1577455211' target='_blank'>
+<a href='https://apps.apple.com/app/id1577455211' target='_blank'>
 <img width="auto" height='60px' src='https://github.com/MrMYHuang/twri/raw/main/docs/images/Download_on_the_Mac_App_Store_Badge_CNTC_RGB_blk_100217.svg'/>
 </a>
 
@@ -106,7 +106,7 @@ https://myhpwa.github.io/twri
 </a>
 
 ## <a id='knownIssues'>已知問題</a>
-1. iOS Safari 13.4以上才支援"分享此頁"功能。
+1. iOS Safari 13.4 以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
 * 1.4.6:
