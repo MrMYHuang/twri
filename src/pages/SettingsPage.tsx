@@ -3,12 +3,13 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem,
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import Globals from '../Globals';
-import { helpCircle, text, colorPalette, shareSocial, bug, download, informationCircle } from 'ionicons/icons';
+import { helpCircle, text, colorPalette, bug, download, informationCircle } from 'ionicons/icons';
 import './SettingsPage.css';
 import PackageInfos from '../../package.json';
 import { Settings } from '../models/Settings';
 
 interface StateProps {
+  showBugReportAlert: boolean;
   showClearAlert: boolean;
   showToast: boolean;
   toastMessage: string;
@@ -38,6 +39,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
     super(props);
 
     this.state = {
+      showBugReportAlert: false,
       showLicense: false,
       showClearAlert: false,
       showToast: false,
@@ -48,6 +50,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
   ionViewWillEnter() {
   }
 
+  reportText = '';
   render() {
     return (
       <IonPage>
@@ -58,17 +61,16 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
         </IonHeader>
         <IonContent>
           <IonList>
+            {/*
+            // Disable app update for Mac App Store submission.
             <IonItem>
-              <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={shareSocial} slot='start' />
               <IonLabel className='ion-text-wrap uiFont' onClick={async e => {
-                // Disable app update for Mac App Store submission.
-                /*
                 const hasUpdate = await Globals.updateApp();
 
                 if (!hasUpdate) {
                   this.setState({ showToast: true, toastMessage: 'App 已是最新版' });
-                }*/
+                }
               }}>PWA版本: <a href="https://github.com/MrMYHuang/twri#history" target="_new">{PackageInfos.pwaVersion}</a></IonLabel>
               <IonButton fill='outline' shape='round' slot='end' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={e => {
                 this.props.dispatch({
@@ -81,6 +83,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                 });
               }}>分享</IonButton>
             </IonItem>
+            */}
             <IonItem hidden={!this.props.mainVersion}>
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={informationCircle} slot='start' />
@@ -107,13 +110,52 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                 });
               }} />
             </IonItem>
-            <IonItem hidden={!this.props.hasAppLog}>
+            <IonItem hidden={!this.props.settings.hasAppLog}>
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
               <IonIcon icon={bug} slot='start' />
               <IonLabel className='ion-text-wrap uiFont'>回報app異常記錄</IonLabel>
-              <IonButton fill='outline' shape='round' slot='end' size='large' style={{ fontSize: 'var(--ui-font-size)' }} onClick={e => {
-                window.open(`mailto:myh@live.com?subject=台灣水庫異常記錄回報&body=${encodeURIComponent("問題描述(建議填寫)：\n\n瀏覽器：" + navigator.userAgent + "\n\nApp版本：" + PackageInfos.pwaVersion + "\n\nApp設定：" + JSON.stringify(this.props.settings) + "\n\nLog：\n" + Globals.getLog())}`);
+              <IonButton fill='outline' shape='round' slot='end' size='large' className='uiFont' onClick={e => {
+                this.reportText = "問題描述(建議填寫)：\n\n瀏覽器：" + navigator.userAgent + "\n\nApp版本：" + PackageInfos.pwaVersion + "\n\nApp設定：" + JSON.stringify(this.props.settings) + "\n\nLog：\n" + Globals.getLog();
+                this.setState({ showBugReportAlert: true });
               }}>回報</IonButton>
+              <IonAlert
+                cssClass='uiFont'
+                backdropDismiss={false}
+                isOpen={this.state.showBugReportAlert}
+                header={'異常回報'}
+                subHeader='輸入您的 E-mail，以後續聯絡'
+                inputs={[
+                  {
+                    name: 'name0',
+                    type: 'email',
+                    placeholder: '例：abc@example.com'
+                  },
+                ]}
+                buttons={[
+                  {
+                    text: '送出',
+                    cssClass: 'primary uiFont',
+                    handler: async (value) => {
+                      try {
+                        await Globals.axiosInstance.post(Globals.bugReportApiUrl, {
+                          subject: `${PackageInfos.productName}異常記錄回報`,
+                          text: `E-mail: ${value.name0}\n${this.reportText}`,
+                        });
+                        this.setState({ showBugReportAlert: false, showToast: true, toastMessage: `異常回報成功` });
+                      } catch (error) {
+                        console.error(error);
+                        this.setState({ showBugReportAlert: false, showToast: true, toastMessage: `異常回報失敗` });
+                      }
+                    },
+                  },
+                  {
+                    text: '取消',
+                    role: 'cancel',
+                    cssClass: 'secondary uiFont',
+                    handler: () => this.setState({ showBugReportAlert: false }),
+                  },
+                ]}
+              />
             </IonItem>
             <IonItem>
               <div tabIndex={0}></div>{/* Workaround for macOS Safari 14 bug. */}
@@ -297,32 +339,32 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
             </IonItem>
           </IonList>
           <IonAlert
-              isOpen={this.state.showLicense}
-              cssClass='uiFontX0_8'
-              backdropDismiss={false}
-              message="此 app 使用《水庫每日營運狀況》(https://data.gov.tw/dataset/41568)、《水庫水情資料》(https://data.gov.tw/dataset/45501)。此開放資料依政府資料開放授權條款 (Open Government Data License) 進行公眾釋出，使用者於遵守本條款各項規定之前提下，得利用之。政府資料開放授權條款：https://data.gov.tw/license"
-              buttons={[
-                {
-                  text: '關閉',
-                  cssClass: 'primary uiFont',
-                  handler: (value) => {
-                    this.setState({
-                      showLicense: false,
-                    });
-                  },
+            isOpen={this.state.showLicense}
+            cssClass='uiFontX0_8'
+            backdropDismiss={false}
+            message="此 app 使用《水庫每日營運狀況》(https://data.gov.tw/dataset/41568)、《水庫水情資料》(https://data.gov.tw/dataset/45501)。此開放資料依政府資料開放授權條款 (Open Government Data License) 進行公眾釋出，使用者於遵守本條款各項規定之前提下，得利用之。政府資料開放授權條款：https://data.gov.tw/license"
+            buttons={[
+              {
+                text: '關閉',
+                cssClass: 'primary uiFont',
+                handler: (value) => {
+                  this.setState({
+                    showLicense: false,
+                  });
                 },
-                {
-                  text: '開啟授權',
-                  cssClass: 'secondary uiFont',
-                  handler: (value) => {
-                    this.setState({
-                      showLicense: false,
-                    });
-                    window.open('https://data.gov.tw/license');
-                  },
-                }
-              ]}
-            />
+              },
+              {
+                text: '開啟授權',
+                cssClass: 'secondary uiFont',
+                handler: (value) => {
+                  this.setState({
+                    showLicense: false,
+                  });
+                  window.open('https://data.gov.tw/license');
+                },
+              }
+            ]}
+          />
 
           <IonToast
             cssClass='uiFont'
