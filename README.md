@@ -109,6 +109,8 @@ https://myhpwa.github.io/twri
 1. iOS Safari 13.4 以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* Snap 1.1.0:
+  * 支援 Linux arm64。
 * MAS 1.1.0:
   * 支援 Universal app。
 * 1.5.0:
