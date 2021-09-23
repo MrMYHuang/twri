@@ -151,7 +151,7 @@ const Globals = {
   appSettings: {
     'iconSize': '圖示大小',
     'theme': '佈景主題',
-    'uiFontSize': 'UI字型大小',
+    'uiFontSize': 'UI 字型大小',
     'textFontSize': '內容文字大小',
   } as Record<string, string>,
   fetchErrorContent: (
