@@ -16,6 +16,11 @@
   ],
   "scope": "/twri/",
   "start_url": "/twri/",
+  "url_handlers": [
+    {
+      "origin": "https://myhpwa.github.io/twri/"
+    }
+  ],
   "display": "standalone",
   "shortcuts": [
     {
