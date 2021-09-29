@@ -18,7 +18,7 @@
   "start_url": "/twri/",
   "url_handlers": [
     {
-      "origin": "https://myhpwa.github.io/twri/"
+      "origin": "https://myhpwa.github.io"
     }
   ],
   "display": "standalone",
