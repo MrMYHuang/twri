@@ -109,6 +109,11 @@ https://myhpwa.github.io/twri
 1. iOS Safari 13.4 以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+
+* PWA 1.6.2:
+  * [修正] 網址分享在新電腦開啟異常。
+  * [修正] setState, dispatch 相關狀態更新 bugs。
+
 * 1.6.0:
   * 錯誤回報功能作 E-mail 檢查。
   * 錯誤回報功能支援填寫問題發生步驟。

@@ -37,3 +37,4 @@ Bookcase
 BackendAppSettings.json
 iOS/twri/twri.xcodeproj/project.xcworkspace/xcuserdata/roger.xcuserdatad/UserInterfaceState.xcuserstate
 buildElectron/icon.icns
+buildElectron/*.map
