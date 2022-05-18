@@ -34,8 +34,10 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
     this.updateLiquidIcon();
   }
 
-  componentDidUpdate() {
-    this.updateLiquidIcon();
+  componentDidUpdate(prevProps: any) {
+    if (prevProps.info !== this.props.info || prevProps.settings.iconSize !== this.props.settings.iconSize) {
+      this.updateLiquidIcon();
+    }
   }
 
   updateLiquidIcon() {

@@ -326,7 +326,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
                     key: 'textFontSize',
                     val: +e.detail.value,
                   });
-                  this.props.settings.uiFontSize = +e.detail.value;
+                  this.props.settings.textFontSize = +e.detail.value;
                   Globals.updateCssVars(this.props.settings);
                 }} />
               </div>
