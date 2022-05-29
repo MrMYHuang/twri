@@ -389,7 +389,7 @@ class _SettingsPage extends React.Component<PageProps, StateProps> {
 
 const mapStateToProps = (state: any /*, ownProps*/) => {
   return {
-    settings: state.settings,
+    settings: JSON.parse(JSON.stringify(state.settings)),
     hasAppLog: state.settings.hasAppLog,
     theme: state.settings.theme,
     uiFontSize: state.settings.uiFontSize,

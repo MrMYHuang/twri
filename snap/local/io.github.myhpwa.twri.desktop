@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=台灣水庫
+GenericName=台灣水庫
+Exec=twri/twri --no-sandbox
+Icon=${SNAP}/meta/gui/icon.png
+Type=Application
+Terminal=false
+Categories=None;
+StartupWMClass=twri

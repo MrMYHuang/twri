@@ -186,10 +186,10 @@ class _HomePage extends React.Component<PageProps, State> {
 };
 
 const mapStateToProps = (state: any /*, ownProps*/) => {
-  return {
+  return JSON.parse(JSON.stringify({
     tmpSettings: state.tmpSettings,
     settings: state.settings
-  }
+  }));
 };
 
 //const mapDispatchToProps = {};
