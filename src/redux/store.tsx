@@ -1,24 +1,34 @@
-import { /*applyMiddleware,*/ createStore, Store } from "redux";
+import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 
 //import { logger } from "redux-logger"
 //import thunk from "redux-thunk"
 //import promise from "redux-promise-middleware"
 
 import reducer from "./reducers";
-import Globals from "../Globals";
 
 //const middleware = applyMiddleware(promise(), thunk, logger)
 
-var savedStore: Store;
+var savedStore: EnhancedStore;
+const storeFile = 'Settings.json';
 
-export default function getSavedStore() {
-    var savedSettingsStr = localStorage.getItem(Globals.storeFile);
+function getSavedStore() {
+    var savedSettingsStr = localStorage.getItem(storeFile);
     if (savedSettingsStr != null) {
-        savedStore = createStore(reducer, JSON.parse(savedSettingsStr));//, middleware)
+        savedStore = configureStore({
+            reducer,
+            preloadedState: JSON.parse(savedSettingsStr)
+        });//, middleware)
     }
     else {
-        savedStore = createStore(reducer);//, middleware)
+        savedStore = configureStore({ reducer });//, middleware)
     }
 
     return savedStore;
 }
+
+const store = {
+    storeFile,
+    getSavedStore,
+};
+
+export default store;
