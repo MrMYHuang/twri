@@ -5,14 +5,14 @@ import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 //import promise from "redux-promise-middleware"
 
 import reducer from "./reducers";
+import Globals from "../Globals";
 
 //const middleware = applyMiddleware(promise(), thunk, logger)
 
 var savedStore: EnhancedStore;
-const storeFile = 'Settings.json';
 
-function getSavedStore() {
-    var savedSettingsStr = localStorage.getItem(storeFile);
+export default function getSavedStore() {
+    var savedSettingsStr = localStorage.getItem(Globals.storeFile);
     if (savedSettingsStr != null) {
         savedStore = configureStore({
             reducer,
@@ -25,10 +25,3 @@ function getSavedStore() {
 
     return savedStore;
 }
-
-const store = {
-    storeFile,
-    getSavedStore,
-};
-
-export default store;
