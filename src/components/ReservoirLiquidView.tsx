@@ -95,10 +95,10 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
         <div className='title'>
           <svg id={this.id} width={`${this.props.settings.iconSize}px`} height={`${this.props.settings.iconSize}px`}
             onClick={e => {
-              this.props.onIconClick(new Bookmark({
+              this.props.onIconClick(({
                 ReservoirIdentifier: this.props.info.ReservoirIdentifier,
                 ReservoirName: this.props.info.ReservoirName
-              }));
+              }) as Bookmark);
             }}></svg>
         </div>
         <div style={{ width: `${this.props.settings.iconSize}px` }}>

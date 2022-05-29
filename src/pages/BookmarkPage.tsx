@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonReorderGroup, IonReorder, IonItem, IonLabel, withIonLifeCycle, IonItemSliding, IonItemOptions, IonItemOption, IonIcon, IonButton, IonToast, IonLoading } from '@ionic/react';
 import { ItemReorderEventDetail } from '@ionic/core';
 import { RouteComponentProps } from 'react-router-dom';
@@ -68,12 +68,12 @@ class _BookmarkPage extends React.Component<PageProps, State> {
       ReservoirIdentifier: uuidStr,
     });
 
-    setImmediate(() => {
+    setTimeout(() => {
       if (!this.hasBookmark) {
         this.setState({ showToast: true, toastMessage: '無書籤！請搜尋藥品並加至書籤。' });
         this.props.history.push(`${Globals.pwaUrl}/home`);
       }
-    });
+    }, 0);
   }
 
   reorderBookmarks(event: CustomEvent<ItemReorderEventDetail>) {
@@ -86,7 +86,7 @@ class _BookmarkPage extends React.Component<PageProps, State> {
 
   getBookmarkRows() {
     let bookmarks = this.props.bookmarks;
-    let rows = Array<object>();
+    let rows = Array<ReactNode>();
     bookmarks.forEach((bookmark, i) => {
       let label = `${bookmark.ReservoirName}`;
       rows.push(
@@ -198,11 +198,11 @@ class _BookmarkPage extends React.Component<PageProps, State> {
 };
 
 const mapStateToProps = (state: any /*, ownProps*/) => {
-  return {
+  return JSON.parse(JSON.stringify({
     bookmarks: state.settings.bookmarks,
     settings: state.settings,
     tmpSettings: state.tmpSettings,
-  }
+  }));
 };
 
 //const mapDispatchToProps = {};

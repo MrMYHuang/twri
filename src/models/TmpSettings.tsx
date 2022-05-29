@@ -1,8 +1,13 @@
 import { DailyOperationalStatisticsOfReservoir } from "./DailyOperationalStatisticsOfReservoir";
 
-
-export class TmpSettings {
-    fetchError: boolean = false;
-    isLoading: boolean = false;
-    reservoirs: DailyOperationalStatisticsOfReservoir[] = [];
+export interface TmpSettings {
+    fetchError: boolean;
+    isLoading: boolean;
+    reservoirs: DailyOperationalStatisticsOfReservoir[];
 }
+
+export const defaultTmpSettings = {
+    fetchError: false,
+    isLoading: false,
+    reservoirs: [],
+} as TmpSettings;
