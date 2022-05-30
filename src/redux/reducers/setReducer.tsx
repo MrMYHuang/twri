@@ -44,6 +44,11 @@ export default function reducer(state = { ...defaultSettings }, action: any) {
           document.body.classList.toggle(`theme${val}`, true);
           break;
         }
+        case 'uiFontSize':
+        case 'textFontSize': {
+          Globals.updateCssVars(newSettings);
+          break;
+        }
       }
 
       (newSettings as any)[key] = val;
