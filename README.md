@@ -109,6 +109,9 @@ https://myhpwa.github.io/twri
 1. iOS Safari 13.4 以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* PWA 1.7.1:
+  * [修正] Chrome 瀏覽器開啟自動中翻英後，app 功能異常的 bug。
+
 * PWA 1.7.0:
   * [優化] 更新套件。
 
