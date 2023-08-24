@@ -159,7 +159,7 @@ const Globals = {
       <IonLabel>
         <div>
           <div>連線失敗!</div>
-          <div style={{ fontSize: 'var(--ui-font-size)', paddingTop: 24 }}>請嘗試點擊右上方的重新讀取按鈕。如果問題持續發生，請執行<a href={`/${pwaUrl}/settings`} target="_self">設定頁</a>的 app 異常回報功能。</div>
+          <div style={{ fontSize: 'var(--ui-font-size)', paddingTop: 24 }}>請嘗試點擊右上方的重新讀取按鈕。如果問題持續發生，請執行<a href={`${pwaUrl}/settings`} target="_self">設定頁</a>的 app 異常回報功能。</div>
         </div>
       </IonLabel>
     </div>

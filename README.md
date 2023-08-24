@@ -109,6 +109,9 @@ https://myhpwa.github.io/twri
 1. iOS Safari 13.4 以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* PWA 1.7.3:
+  * [修正] 連線異常頁面，點擊"設定頁"卻畫面空白的問題。
+
 * PWA 1.7.2:
   * [修正] Chrome 115 下拉選單顯示異常。
 
