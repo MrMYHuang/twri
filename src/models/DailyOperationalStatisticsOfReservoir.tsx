@@ -4,7 +4,7 @@ export interface DailyOperationalStatisticsOfReservoir {
     CatchmentAreaRainfall: number;
     CrossFlow: number;
     DeadStorageLevel: number;
-    EffectiveCapacity: number;
+    Capacity: number;
     FullWaterLevel: number;
     InflowVolume: number;
     Outflow: number;

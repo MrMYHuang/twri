@@ -49,7 +49,7 @@ class _HomePage extends React.Component<PageProps, State> {
 
   clickedBookmark: Bookmark | undefined;
   getReservoirInfos() {
-    const reservoirs = this.props.settings.showAllReservoirs ? this.props.tmpSettings.reservoirs : this.props.tmpSettings.reservoirs.filter(v => v.EffectiveCapacity > 1000);
+    const reservoirs = this.props.settings.showAllReservoirs ? this.props.tmpSettings.reservoirs : this.props.tmpSettings.reservoirs.filter(v => v.Capacity > 1000);
     return reservoirs.map((info) =>
       <ReservoirLiquidView key={`HomeReservoirLiquidView${info.ReservoirIdentifier}`}
         {...{

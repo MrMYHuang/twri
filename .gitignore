@@ -28,7 +28,7 @@ apk
 ios/Pods
 others
 MrRogerHuang.github.io
-pwa
+twri-pwa
 buildElectron/**/*.js
 dist
 temp

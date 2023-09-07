@@ -41,7 +41,7 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
   }
 
   updateLiquidIcon() {
-    const EffectiveWaterStorageCapacityPercent = (this.props.info.latestWaterData?.EffectiveWaterStorageCapacity || 0) / this.props.info.EffectiveCapacity * 100;
+    const EffectiveWaterStorageCapacityPercent = (this.props.info.latestWaterData?.EffectiveWaterStorageCapacity || 0) / this.props.info.Capacity * 100;
     let liquidViewConfig = liquidFillGaugeDefaultSettings();
     if (EffectiveWaterStorageCapacityPercent >= 50) {
       this.setEnoughColor(liquidViewConfig);
@@ -103,7 +103,7 @@ class _ReservoirLiquidView extends React.Component<PageProps, State> {
         </div>
         <div style={{ width: `${this.props.settings.iconSize}px` }}>
           <div className='textFontX0_8'>有效蓄水量：{Math.round(this.props.info.latestWaterData?.EffectiveWaterStorageCapacity || 0)}</div>
-          <div className='textFontX0_8' hidden={!this.props.settings.showAllReservoirs}>有效容量：{Math.round(this.props.info.EffectiveCapacity || 0)}</div>
+          <div className='textFontX0_8' hidden={!this.props.settings.showAllReservoirs}>有效容量：{Math.round(this.props.info.Capacity || 0)}</div>
           <div className='textFontX0_8'>觀測時間：{this.getTime()}</div>
         </div>
       </div>
