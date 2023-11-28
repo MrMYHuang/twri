@@ -58,6 +58,11 @@ async function fetchData(dispatch: Function) {
       key: 'reservoirs',
       val: data,
     });
+    dispatch({
+      type: "TMP_SET_KEY_VAL",
+      key: 'fetchError',
+      val: false,
+    });
   } catch (error) {
     dispatch({
       type: "TMP_SET_KEY_VAL",

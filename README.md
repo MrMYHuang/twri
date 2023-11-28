@@ -109,6 +109,9 @@ https://myhpwa.github.io/twri
 1. iOS Safari 13.4 以上才支援"分享此頁"功能。
 
 ## <a id='history'>版本歷史</a>
+* PWA 1.7.5:
+  * [修正] 水庫資料下載失敗，手動刷新無法恢復正常，要重啟 app 的問題。
+
 * PWA 1.7.4:
   * [修正] 水庫資料欄位更名。
 
