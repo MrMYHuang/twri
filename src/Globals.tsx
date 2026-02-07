@@ -22,7 +22,7 @@ async function fetchData(dispatch: Function) {
   });
   try {
     let obj: any;
-    const res = await axiosInstance.get(twrDataUrl, {
+    const res = await axiosInstance.get(twrDataUrl + `?timeStamp=${new Date().getTime()}`, {
       responseType: 'arraybuffer',
     });
     obj = JSON.parse(new TextDecoder().decode(res.data)) as any;
