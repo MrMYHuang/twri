@@ -1,18 +1,18 @@
 export interface ReservoirConditionData {
-    AccumulateRainfallInCatchment: number;
-    DesiltingTunnelOutflow: number;
-    DrainageTunnelOutflow: number;
-    EffectiveWaterStorageCapacity: number;
-    InflowDischarge: number;
-    ObservationTime: string;
-    OthersOutflow: number;
-    PowerOutletOutflow: number;
-    PredeterminedCrossFlow: number;
-    PredeterminedOutflowTime: string;
-    ReservoirIdentifier: number;
-    SpillwayOutflow: number;
-    StatusType: number;
-    TotalOutflow: number;
-    WaterDraw: number;
-    WaterLevel: number;
+    accumulaterainfallincatchment: number;
+    desiltingtunneloutflow: number;
+    drainagetunneloutflow: number;
+    effectivewaterstoragecapacity: number;
+    inflowdischarge: number;
+    observationtime: string;
+    othersoutflow: number;
+    poweroutletoutflow: number;
+    predeterminedcrossflow: number;
+    predeterminedoutflowtime: string;
+    reservoiridentifier: number;
+    spillwayoutflow: number;
+    statustype: number;
+    totaloutflow: number;
+    waterdraw: number;
+    waterlevel: number;
 }

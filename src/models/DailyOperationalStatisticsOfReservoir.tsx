@@ -1,18 +1,18 @@
 import { ReservoirConditionData } from "./ReservoirConditionData";
 
 export interface DailyOperationalStatisticsOfReservoir {
-    CatchmentAreaRainfall: number;
-    CrossFlow: number;
-    DeadStorageLevel: number;
-    Capacity: number;
-    FullWaterLevel: number;
-    InflowVolume: number;
-    Outflow: number;
-    OutflowDischarge: number;
-    OutflowTotal: number;
-    RecordTime: string;
-    RegulatoryDischarge: number;
-    ReservoirIdentifier: string;
-    ReservoirName: string;
-    latestWaterData: ReservoirConditionData | undefined;
+    catchmentarearainfall: number;
+    crossflow: number;
+    deadstoragelevel: number;
+    capacity: number;
+    fullwaterlevel: number;
+    inflowvolume: number;
+    outflow: number;
+    outflowdischarge: number;
+    outflowtotal: number;
+    recordtime: string;
+    regulatorydischarge: number;
+    reservoiridentifier: string;
+    reservoirname: string;
+    latestwaterdata: ReservoirConditionData | undefined;
 }

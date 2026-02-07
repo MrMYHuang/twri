@@ -4,7 +4,7 @@ import { DailyOperationalStatisticsOfReservoir } from './models/DailyOperational
 import { ReservoirConditionData } from './models/ReservoirConditionData';
 import { Settings } from './models/Settings';
 
-const pwaUrl = process.env.PUBLIC_URL || '';
+const pwaUrl = (import.meta.env.BASE_URL || '').replace(/\/$/, '');
 const bugReportApiUrl = 'https://vh6ud1o56g.execute-api.ap-northeast-1.amazonaws.com/bugReportMailer';
 let twrDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/twrData.json`;
 let twrWaterDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/twrDataWater.json`;
@@ -26,30 +26,30 @@ async function fetchData(dispatch: Function) {
       responseType: 'arraybuffer',
     });
     obj = JSON.parse(new TextDecoder().decode(res.data)) as any;
-    let data = obj.DailyOperationalStatisticsOfReservoirs_OPENDATA as DailyOperationalStatisticsOfReservoir[];
+    let data = obj as DailyOperationalStatisticsOfReservoir[];
 
     const resWater = await Globals.axiosInstance.get(Globals.twrWaterDataUrl + `?timeStamp=${new Date().getTime()}`, {
       responseType: 'arraybuffer',
     });
     obj = JSON.parse(new TextDecoder().decode(resWater.data)) as any;
-    let dataWater = obj.ReservoirConditionData_OPENDATA as ReservoirConditionData[];
+    let dataWater = obj as ReservoirConditionData[];
 
     let dataWaterReduced: any = {};
     dataWater.forEach((d) => {
-      if (dataWaterReduced[d.ReservoirIdentifier] == null) {
-        dataWaterReduced[d.ReservoirIdentifier] = d;
+      if (dataWaterReduced[d.reservoiridentifier] == null) {
+        dataWaterReduced[d.reservoiridentifier] = d;
         return;
       }
 
-      const originD = dataWaterReduced[d.ReservoirIdentifier] as ReservoirConditionData;
-      if (new Date(originD.ObservationTime) < new Date(d.ObservationTime)) {
-        dataWaterReduced[d.ReservoirIdentifier] = d;
+      const originD = dataWaterReduced[d.reservoiridentifier] as ReservoirConditionData;
+      if (new Date(originD.observationtime) < new Date(d.observationtime)) {
+        dataWaterReduced[d.reservoiridentifier] = d;
       }
     });
 
     data.forEach((d) => {
-      if (dataWaterReduced[d.ReservoirIdentifier] != null) {
-        d.latestWaterData = dataWaterReduced[d.ReservoirIdentifier];
+      if (dataWaterReduced[d.reservoiridentifier] != null) {
+        d.latestwaterdata = dataWaterReduced[d.reservoiridentifier];
       }
     });
 
@@ -64,6 +64,7 @@ async function fetchData(dispatch: Function) {
       val: false,
     });
   } catch (error) {
+    console.error(error);
     dispatch({
       type: "TMP_SET_KEY_VAL",
       key: 'fetchError',
