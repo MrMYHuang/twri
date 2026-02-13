@@ -2,9 +2,15 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import path from 'path';
 
 export default defineConfig({
   base: '/twri/',
+  resolve: {
+    alias: {
+      'twri-data': path.resolve(__dirname, 'twri-data/src/index.ts'),
+    },
+  },
   plugins: [
     react(),
     nodePolyfills(),

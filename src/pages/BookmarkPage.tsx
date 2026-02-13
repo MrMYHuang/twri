@@ -9,7 +9,7 @@ import Globals from '../Globals';
 import { Settings } from '../models/Settings';
 import ReservoirLiquidView from '../components/ReservoirLiquidView';
 import { TmpSettings } from '../models/TmpSettings';
-import { DailyOperationalStatisticsOfReservoir } from '../models/DailyOperationalStatisticsOfReservoir';
+import type { DailyOperationalStatisticsOfReservoir } from 'twri-data';
 
 interface Props {
   dispatch: Function;

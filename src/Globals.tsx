@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { isPlatform, IonLabel } from '@ionic/react';
-import { DailyOperationalStatisticsOfReservoir } from './models/DailyOperationalStatisticsOfReservoir';
-import { ReservoirConditionData } from './models/ReservoirConditionData';
+import type { DailyOperationalStatisticsOfReservoir, ReservoirConditionData } from 'twri-data';
 import { Settings } from './models/Settings';
 
 const pwaUrl = (import.meta.env.BASE_URL || '').replace(/\/$/, '');

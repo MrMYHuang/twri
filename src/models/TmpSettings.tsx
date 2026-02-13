@@ -1,4 +1,4 @@
-import { DailyOperationalStatisticsOfReservoir } from "./DailyOperationalStatisticsOfReservoir";
+import type { DailyOperationalStatisticsOfReservoir } from "twri-data";
 
 export interface TmpSettings {
     fetchError: boolean;

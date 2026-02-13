@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { liquidFillGaugeDefaultSettings, loadLiquidFillGauge } from '../liquidFillGauge';
-import { DailyOperationalStatisticsOfReservoir } from '../models/DailyOperationalStatisticsOfReservoir';
+import type { DailyOperationalStatisticsOfReservoir } from 'twri-data';
 import { Settings } from '../models/Settings';
 import './ReservoirLiquidView.css';
 import { Bookmark } from '../models/Bookmark';
