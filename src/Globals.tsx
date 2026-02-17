@@ -5,8 +5,8 @@ import { Settings } from './models/Settings';
 
 const pwaUrl = (import.meta.env.BASE_URL || '').replace(/\/$/, '');
 const bugReportApiUrl = 'https://vh6ud1o56g.execute-api.ap-northeast-1.amazonaws.com/bugReportMailer';
-let twrDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/twrData.json`;
-let twrWaterDataUrl = `https://myhdata.s3.ap-northeast-1.amazonaws.com/twrDataWater.json`;
+let twrDataUrl = `https://mrmyhuang.s3.ap-east-2.amazonaws.com/twrData.json`;
+let twrWaterDataUrl = `https://mrmyhuang.s3.ap-east-2.amazonaws.com/twrDataWater.json`;
 
 const axiosInstance = axios.create({
   baseURL: twrDataUrl,
