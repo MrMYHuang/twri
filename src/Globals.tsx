@@ -4,7 +4,7 @@ import type { DailyOperationalStatisticsOfReservoir, ReservoirConditionData } fr
 import { Settings } from './models/Settings';
 
 const pwaUrl = (import.meta.env.BASE_URL || '').replace(/\/$/, '');
-const bugReportApiUrl = 'https://vh6ud1o56g.execute-api.ap-northeast-1.amazonaws.com/bugReportMailer';
+const bugReportApiUrl = 'https://bug-report.mrmyh.eu.org/bugReportMailer';
 let twrDataUrl = `https://mrmyhuang.s3.ap-east-2.amazonaws.com/twrData.json`;
 let twrWaterDataUrl = `https://mrmyhuang.s3.ap-east-2.amazonaws.com/twrDataWater.json`;
 
